@@ -561,382 +561,127 @@ h1 {
     font-size: 1rem;
 }
 
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Global Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
-/* Main container */
-.container {
-    width: 100%;
-    margin: 0 auto;
-    padding: 15px;
-    background-color: #fff;
-}
-
-/* Dashboard Section */
-.dashboard {
-    width: 100%;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.profile-section {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#profilePic {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-}
-
-#profileName {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #333;
-}
-
-.divider {
-    width: 100%;
-    height: 1px;
-    background-color: #ddd;
-    margin: 20px 0;
-}
-
-/* Search Section */
-.search-section {
-    margin-bottom: 20px;
-}
-
-.search-input {
-    width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-/* Task Section */
-.task-section h3 {
-    font-size: 1.4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.toggle-btn {
-    font-size: 1.3rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.task-list {
-    list-style: none;
-    padding: 0;
-}
-
-.task-list li {
-    background-color: #fff;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.task-divider {
-    margin-top: 15px;
-    border: none;
-    height: 1px;
-    background-color: #ddd;
-}
-
-.deleted-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-
-/* Main Content */
-.main-container {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-}
-
-.task-form {
-    margin-bottom: 20px;
-}
-
-.task-input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-/* Create Task Button */
-.add-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-
-/* Task Details Section */
-.task-details {
-    position: fixed;
-    top: 10%;
-    left: 5%;
-    width: 90%;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    display: none; /* Initially hidden */
-    border-radius: 8px;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-.task-detail-item {
-    margin-bottom: 10px;
-}
-
-.task-detail-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.task-detail-value {
-    font-size: 1rem;
-    color: #555;
-}
-
-.status-pending {
-    color: #f39c12;
-}
-
-.task-actions {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.edit-btn, .delete-btn {
-    width: 48%;
-    padding: 12px;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.edit-btn {
-    background-color: #f39c12;
-    color: white;
-}
-
-.delete-btn {
-    background-color: #e74c3c;
-    color: white;
-}
-
-/* Edit Task Modal */
-.edit-container {
-    position: fixed;
-    top: 10%;
-    left: 5%;
-    width: 90%;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    display: none;
-    border-radius: 8px;
-}
-
-.edit-content h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-}
-
-.edit-content input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-/* Footer */
-.footer {
-    text-align: center;
-    padding: 10px 0;
-    font-size: 0.9rem;
-    background-color: #f1f1f1;
-    margin-top: 20px;
-}
-
-.footer p {
-    color: #555;
-}
-
-/* Responsive adjustments for iPhone 8 and smaller screens */
+/* Responsive Design for smaller screens (e.g., iPhone 8) */
 @media screen and (max-width: 375px) {
-    /* Dashboard Section */
-    .dashboard {
-        padding: 15px;
+    /* Center the container */
+    .container {
+        padding: 15px; /* Reduced padding for mobile */
+        width: 90%; /* Set the width to 90% of the screen */
+        max-width: 350px; /* Max width to prevent the container from becoming too wide */
+        margin: 0 auto; /* Automatically set the left and right margins to center the container */
+        box-sizing: border-box; /* Include padding in the width calculation */
     }
 
-    .profile-section {
-        padding: 10px 0;
-    }
-
-    #profilePic {
-        width: 70px;
-        height: 70px;
-    }
-
-    #profileName {
-        font-size: 1.1rem;
-    }
-
-    .search-input {
-        padding: 10px;
-        font-size: 1rem;
-    }
-
-    /* Task Section */
-    .task-section h3 {
-        font-size: 1.3rem;
-        margin-bottom: 10px;
-    }
-
-    .toggle-btn {
-        font-size: 1.2rem;
-    }
-
-    .task-list li {
-        padding: 12px;
-        margin-bottom: 10px;
-    }
-
-    .task-divider {
-        margin-top: 10px;
-    }
-
-    .deleted-btn {
-        font-size: 1rem;
-        padding: 10px;
-    }
-
-    /* Main Content */
-    .main-container {
-        padding: 10px;
-        margin-top: 20px;
-    }
-
+    /* Header adjustments */
     h1 {
-        font-size: 1.6rem;
+        font-size: 1.8rem; /* Smaller font for headers */
+        text-align: center; /* Center align headers for better presentation */
         margin-bottom: 15px;
     }
 
-    .task-input {
-        font-size: 0.9rem;
-        padding: 10px;
+    h2 {
+        font-size: 1.4rem; /* Adjusted subheading size */
+        text-align: center; /* Center align subheading */
+        margin-bottom: 10px;
     }
 
-    .add-btn {
-        font-size: 1rem;
-        padding: 12px;
+    /* Input adjustments */
+    input[type="text"], input[type="datetime-local"], select, .task-input {
+        font-size: 1rem; /* Adjust input font size for readability */
+        padding: 10px; /* Adequate padding for inputs */
+        width: 100%; /* Make inputs take full width */
+        box-sizing: border-box; /* Include padding in width calculation */
+        margin-bottom: 15px; /* Space between inputs */
     }
 
-    /* Task Details Section */
-    .task-details, .edit-container {
-        padding: 15px;
+    /* Button adjustments */
+    button {
+        font-size: 1rem; /* Adjust button text size */
+        padding: 12px 15px; /* Adequate padding for easier clicking */
+        width: 100%; /* Make buttons take full width */
+        margin-top: 10px; /* Space above buttons */
     }
 
-    .task-details h1, .edit-content h2 {
-        font-size: 1.4rem;
-    }
-
-    .task-detail-item {
+    /* Task Section Adjustments */
+    .task-section h3 {
+        font-size: 1.4rem; /* Smaller font for task section heading */
         margin-bottom: 15px;
-    }
-
-    .edit-content input {
-        font-size: 0.9rem;
-    }
-
-    .task-actions {
-        flex-direction: column;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
     }
 
-    .task-actions button {
-        width: 100%;
+    /* Task List Adjustments */
+    .task-list {
+        max-height: 300px; /* Limit task list height for better scrolling */
+        overflow-y: auto; /* Allow scrolling */
+    }
+
+    /* Profile Section */
+    .profile-section {
+        text-align: center; /* Center align profile image and name */
+        margin-bottom: 15px;
+    }
+
+    .profile-section img {
+        width: 70px; /* Smaller profile image */
+        height: 70px;
+        border-radius: 50%;
         margin-bottom: 10px;
     }
 
-    .edit-btn, .delete-btn {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    /* Footer */
+    /* Footer Adjustments */
     .footer {
-        font-size: 0.8rem;
-        padding: 8px 0;
+        font-size: 0.9rem;
+        padding: 15px 0;
+        text-align: center; /* Center text in footer */
+    }
+
+    /* Task Form Adjustments */
+    .task-form {
+        width: 100%; /* Ensure task form takes full width */
+        margin-bottom: 20px;
+    }
+
+    /* Task Details Modal Adjustments */
+    .task-details {
+        width: 90%; /* Modal width adjusted for small screen */
+        padding: 15px;
+        margin: 0 auto; /* Center the modal */
+        top: 10%;
+    }
+
+    /* Edit Task Modal Adjustments */
+    .edit-container {
+        width: 90%; /* Modal width adjusted */
+        padding: 20px;
+        margin: 0 auto;
+    }
+
+    /* Ensure that task item layout is responsive */
+    .task-item {
+        font-size: 1rem;
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    /* Sidebar adjustments for smaller screens */
+    .sidebar {
+        width: 100%; /* Full width sidebar on mobile */
+        position: relative;
+    }
+
+    /* Adjust margins for smaller screens */
+    .container, .task-item, .task-form {
+        margin-bottom: 10px;
     }
 }
-
-
 </style>
 </head>
 <body>
+
+    <!-- Toggle Button to show/hide dashboard -->
+<button id="toggleDashboardBtn" class="toggle-dashboard-btn">☰</button>
 
    <!-- Dashboard Section -->
 <div class="dashboard">
@@ -1081,6 +826,13 @@ h1 {
 
 
     <script>
+
+        // JavaScript to toggle the dashboard visibility
+document.getElementById('toggleDashboardBtn').addEventListener('click', function() {
+    const dashboard = document.getElementById('dashboard');
+    dashboard.classList.toggle('show'); // Toggle the visibility of the dashboard
+});
+
        // Select HTML elements
 const profilePic = localStorage.getItem('profilePic');
 const profileName = localStorage.getItem('profileName');
