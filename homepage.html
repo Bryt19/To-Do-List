@@ -562,21 +562,23 @@ h1 {
 }
 
 /* Responsive Design */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 400px) {
     /* Adjust container padding and width */
     .container {
-        padding: 15px; /* Reduced padding for mobile */
-        max-width: 80%; /* Full width for better responsiveness */
+        padding: 10px; /* Further reduced padding for mobile */
+        max-width: 100%; /* Full width for better responsiveness */
     }
 
     /* Adjust heading sizes */
     h1 {
-        font-size: 1.6rem; /* Smaller header for mobile */
+        font-size: 1.4rem; /* Smaller header for mobile */
         text-align: center; /* Center align for better readability */
+        padding: 10px 0; /* Add some spacing to ensure visibility */
     }
 
     h2 {
-        font-size: 1.4rem; /* Smaller subheading */
+        font-size: 1.2rem; /* Slightly smaller subheading */
+        padding: 5px 0; /* Space between heading and content */
     }
 
     /* Adjust input field sizes */
@@ -584,18 +586,19 @@ h1 {
     input[type="datetime-local"],
     select,
     .task-input {
-        font-size: 1rem; /* Slightly smaller font for input fields */
-        padding: 10px; /* Ensure inputs are still usable */
+        font-size: 0.9rem; /* Slightly smaller font for input fields */
+        padding: 8px; /* Adjust padding to keep it usable */
         width: 100%; /* Ensure inputs use the full width */
         box-sizing: border-box; /* Include padding in width calculation */
+        margin-bottom: 10px; /* Spacing between input fields */
     }
 
     /* Adjust button sizes */
     .add-btn, .deleted-btn, .task-btn, .edit-btn, .delete-btn {
-        font-size: 1rem; /* Button text size for mobile */
-        padding: 10px 15px; /* Adequate padding for touch targets */
+        font-size: 0.9rem; /* Button text size for mobile */
+        padding: 8px 12px; /* Adequate padding for touch targets */
         width: 100%; /* Buttons take full width */
-        margin-bottom: 10px; /* Spacing between buttons */
+        margin-bottom: 12px; /* Space between buttons */
     }
 
     /* Make the task form full width */
@@ -607,7 +610,7 @@ h1 {
 
     /* Adjust task section heading */
     .task-section h3 {
-        font-size: 1.4rem; /* Smaller task section header */
+        font-size: 1.2rem; /* Smaller task section header */
     }
 
     /* Profile section */
@@ -618,8 +621,8 @@ h1 {
 
     /* Dashboard adjustment */
     .dashboard {
-        width: 90%; /* Full width dashboard */
-        padding: 20px;
+        width: 100%; /* Full width dashboard */
+        padding: 15px; /* Reduced padding for mobile */
         height: auto; /* Make height auto so it adjusts with content */
         position: relative;
     }
@@ -627,7 +630,7 @@ h1 {
     /* Task details modal adjustments */
     .task-details {
         width: 90%; /* Modal width adjusted */
-        padding: 15px;
+        padding: 12px;
         top: 10%;
         left: 5%;
         transform: translate(0, 0);
@@ -637,20 +640,24 @@ h1 {
     .task-list {
         max-height: 300px; /* Limit task list height */
         overflow-y: auto;
+        margin-bottom: 10px; /* Space after the task list */
     }
 
     /* Task item adjustments */
     .task-item {
         font-size: 1rem; /* Smaller font for task items */
-        padding: 12px;
-        margin-bottom: 10px; /* Space between tasks */
+        padding: 10px;
+        margin-bottom: 8px; /* Space between tasks */
+        border-radius: 4px; /* Rounded corners for task items */
+        background-color: #f9f9f9; /* Subtle background for tasks */
     }
 
     /* Footer adjustments */
     .footer {
-        font-size: 0.9rem;
-        padding: 10px 0;
+        font-size: 0.8rem; /* Slightly smaller footer font */
+        padding: 8px 0;
         text-align: center; /* Center text in footer */
+        background-color: #f1f1f1; /* Light background for footer */
     }
 
     /* Toggle button for tasks */
@@ -660,8 +667,9 @@ h1 {
 
     /* Edit task modal inputs */
     .edit-content input {
-        font-size: 1rem;
-        padding: 10px;
+        font-size: 0.9rem;
+        padding: 8px;
+        margin-bottom: 10px; /* Space between inputs */
     }
 
     .task-actions {
@@ -690,14 +698,28 @@ h1 {
     }
 
     .task-item .task-content {
-        font-size: 1rem; /* Adjust content font size */
+        font-size: 0.9rem; /* Adjust content font size */
     }
 
     /* Adjust margins for smaller screens */
     .container, .task-item, .task-form {
         margin-bottom: 10px;
     }
+
+    /* Improve spacing and visibility on iPhone 8 screen size */
+    .task-item .task-content,
+    .task-item .task-actions {
+        width: 100%; /* Full width for content inside task items */
+        padding: 5px 0;
+    }
+
+    /* Increase touch area for interactive elements */
+    .task-btn, .add-btn, .edit-btn, .delete-btn {
+        padding: 12px 20px; /* Bigger padding for easier tap interaction */
+        font-size: 1rem;
+    }
 }
+
 
 </style>
 </head>
