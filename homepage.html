@@ -563,19 +563,112 @@ h1 {
 
 /* Responsive Design */
 @media screen and (max-width: 600px) {
-            .container {
-                padding: 20px;
-                max-width: 90%;
-            }
+    /* Adjust container padding and width */
+    .container {
+        padding: 20px;
+        max-width: 90%;
+    }
 
-            h2 {
-                font-size: 24px;
-            }
+    /* Adjust heading sizes */
+    h1 {
+        font-size: 1.8rem; /* Adjust for smaller screens */
+        text-align: center; /* Center align for better readability */
+    }
 
-            input[type="submit"] {
-                font-size: 1.1rem;
-            }
-        }
+    h2 {
+        font-size: 1.6rem; /* Make subheadings smaller */
+    }
+
+    /* Adjust input field sizes */
+    input[type="text"],
+    input[type="datetime-local"],
+    select,
+    .task-input {
+        font-size: 1rem; /* Smaller font for input fields */
+        padding: 12px; /* Adequate padding for usability */
+    }
+
+    /* Button adjustments for better touch targets */
+    .add-btn, .deleted-btn, .task-btn, .edit-btn, .delete-btn {
+        font-size: 1rem; /* Adjust button text size */
+        padding: 12px 18px; /* Provide enough padding for mobile users */
+    }
+
+    /* Make task-form width 100% and adjust margins */
+    .task-form {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    /* Task section styling */
+    .task-section h3 {
+        font-size: 1.4rem; /* Smaller heading size */
+    }
+
+    /* Profile section */
+    .profile-section {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+    /* Dashboard adjustment */
+    .dashboard {
+        width: 100%;
+        padding: 20px;
+        height: auto;
+        position: relative;
+    }
+
+    /* Task details modal adjustments */
+    .task-details {
+        width: 90%; /* Make modal width responsive */
+        padding: 20px;
+        top: 15%;
+        left: 5%;
+        transform: translate(0, 0); /* Reset transformation */
+    }
+
+    /* Ensure task list is scrollable on mobile */
+    .task-list {
+        max-height: 300px; /* Make task list scrollable */
+        overflow-y: auto;
+    }
+
+    /* Task item adjustments */
+    .task-item {
+        font-size: 1rem; /* Slightly smaller font */
+        padding: 12px;
+    }
+
+    /* Adjust the footer for smaller screens */
+    .footer {
+        font-size: 0.9rem;
+        padding: 10px 0;
+    }
+
+    /* Toggle button for tasks */
+    .toggle-btn {
+        font-size: 18px; /* Adjust icon size */
+    }
+
+    /* Edit task modal inputs */
+    .edit-content input {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .task-actions {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center; /* Center align action buttons */
+        margin-top: 20px;
+    }
+
+    .task-actions button {
+        width: 100%; /* Make buttons full width */
+        margin: 5px 0;
+    }
+}
 
 </style>
 </head>
