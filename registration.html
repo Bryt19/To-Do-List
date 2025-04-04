@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('./img/s 2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0 20px;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+
+        /* Darker Overlay */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); 
+            z-index: -1; 
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: static;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8); 
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar h1 {
+            font-size: 2.4rem;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-left: 30px;
+        }
+
+        .navbar a:hover {
+            color: #4CAF50;
+            text-decoration: underline;
+        }
+
+        /* Form Container */
+        .container {
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.9), rgba(211, 233, 241, 0.9)); 
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+            margin-top: 30px;
+            margin-bottom: 30px;
+            z-index: 200;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            background: linear-gradient(135deg, rgba(248, 249, 250, 1), rgba(211, 233, 241, 1)); 
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); 
+            transform: translateY(-8px); 
+        }
+
+        /* Heading Styles */
+        h2 {
+            text-align: center;
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        /* Form Label Styles */
+        label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        /* Input Fields Styling */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1.1rem;
+            background-color: #f9f9f9;
+            color: #333;
+            box-sizing: border-box;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Focus State for Inputs */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+            outline: none;
+        }
+
+        /* Submit Button Styles */
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            transform: translateY(-2px); 
+        }
+
+        /* Message Box Styles */
+        .message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .valid {
+            color: green;
+        }
+
+        /* Terms and Conditions Checkbox */
+        .terms {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .terms input {
+            margin-right: 10px;
+        }
+
+        .terms a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sign In Link Styles */
+        .sign-in-link {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.1rem;
+        }
+
+        .sign-in-link p {
+            color: #000;
+        }
+
+        .sign-in-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .sign-in-link a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            margin-top: auto;
+        }
+
+        /* Media Query for Mobile Devices */
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 25px;
+                max-width: 100%;
+                margin-top: 80px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .navbar h1 {
+                font-size: 1.8rem;
+            }
+
+            .navbar a {
+                font-size: 0.9rem;
+            }
+
+            .sign-in-link {
+                font-size: 1rem;
+            }
+        }
+
+        /* Eye Icon */
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 43%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1> To-Do List </h1>
+    </div>
+
+    <div class="container">
+        <h2>Create An Account</h2>
+        <form id="registrationForm" onsubmit="return handleRegistration(event)">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+    
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Choose a unique username" required>
+    
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+    
+            <label for="password">Password</label>
+            <div style="position: relative;">
+                <input type="password" id="password" name="password" placeholder="Create your password (e.g., Login@2025)" required>
+                <span id="togglePassword" class="eye-icon">👁️</span>
+            </div>
+    
+            <label for="confirmPassword">Confirm Password</label>
+            <div style="position: relative;">
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
+                <span id="toggleConfirmPassword" class="eye-icon">👁️</span>
+            </div>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age (optional)">
+
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <div class="terms">
+                <label>
+                    <input type="checkbox" name="terms" required>
+                    I agree to the <a href="t&C.html">Terms and Conditions</a>
+                </label>
+            </div>
+
+            <input type="submit" value="Register">
+            <div id="message" class="message"></div>
+
+            <div class="sign-in-link">
+                <p>Already have an account? <a href="index.html">Sign In</a></p>
+            </div>
+        </form>
+    </div>
+
+    <div class="loading-spinner" id="loadingSpinner"></div>
+
+    <footer>
+        <p>&copy; 2025 To-Do List. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function handleRegistration(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const age = document.getElementById('age').value.trim();
+            const gender = document.querySelector('select[name="gender"]').value;
+            const terms = document.querySelector('input[name="terms"]:checked');
+
+            const messageDiv = document.getElementById('message');
+
+            // Password Validation: At least 8 characters, 1 uppercase, 1 number, 1 symbol
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+
+            // Validate password format
+            if (!passwordRegex.test(password)) {
+                messageDiv.textContent = "Password must be at least 8 characters long, include at least one uppercase letter, one number, and one symbol.";
+                return;
+            }
+
+            // Validation for matching passwords
+            if (password !== confirmPassword) {
+                messageDiv.textContent = "Passwords do not match.";
+                return;
+            }
+
+            // Check if all required fields are filled
+            if (!fullName || !username || !email || !password || !phone || !gender || !terms) {
+                messageDiv.textContent = "Please fill out all required fields.";
+                return;
+            }
+
+            // Store registration data in localStorage
+            localStorage.setItem('fullName', fullName);
+            localStorage.setItem('username', username);
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
+            localStorage.setItem('phone', phone);
+            localStorage.setItem('age', age);
+            localStorage.setItem('gender', gender);
+
+            // Show loading spinner
+            document.getElementById('loadingSpinner').style.display = 'block';
+
+            // Message box for success
+            messageDiv.textContent = "Registration successful!";
+            messageDiv.className = "valid"; // Success message
+
+            // Redirect to login page after loading spinner
+            setTimeout(() => {
+                window.location.href = "index.html"; // Change to your login page URL
+            }, 3500); // Redirect after 1.5 seconds
+        }
+
+        // Show password functionality for both password fields
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordField = document.getElementById('password');
+            passwordField.type = (passwordField.type === 'password') ? 'text' : 'password';
+        });
+
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            const confirmPasswordField = document.getElementById('confirmPassword');
+            confirmPasswordField.type = (confirmPasswordField.type === 'password') ? 'text' : 'password';
+        });
+
+        // Display eye icon when typing starts
+        document.getElementById('password').addEventListener('input', function() {
+            document.getElementById('togglePassword').style.display = this.value ? 'block' : 'none';
+        });
+
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            document.getElementById('toggleConfirmPassword').style.display = this.value ? 'block' : 'none';
+        });
+
+        // Auto-fill form fields from localStorage
+        window.onload = function() {
+            if (localStorage.getItem('fullName')) {
+                document.getElementById('fullName').value = localStorage.getItem('fullName');
+            }
+            if (localStorage.getItem('username')) {
+                document.getElementById('username').value = localStorage.getItem('username');
+            }
+            if (localStorage.getItem('email')) {
+                document.getElementById('email').value = localStorage.getItem('email');
+            }
+            if (localStorage.getItem('phone')) {
+                document.getElementById('phone').value = localStorage.getItem('phone');
+            }
+            if (localStorage.getItem('age')) {
+                document.getElementById('age').value = localStorage.getItem('age');
+            }
+            if (localStorage.getItem('gender')) {
+                document.getElementById('gender').value = localStorage.getItem('gender');
+            }
+        };
+    </script>
+
+</body>
+</html>

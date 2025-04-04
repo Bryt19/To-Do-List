@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), /* Dark overlay */
+                url('./img/s\ 5.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: static;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 8px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .navbar:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar h1 {
+            font-size: 2.0rem;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Container for Profile Info */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            margin-top: 40px;
+        }
+
+        .container:hover {
+            transform: scale(1.05); /* Slight scale effect */
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+        }
+
+        h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        /* Profile Info */
+        .profile-info {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .profile-info strong {
+            color: #4CAF50;
+        }
+
+        /* Profile Button */
+        .profile-btn {
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 200px;
+            margin-top: 20px;
+        }
+
+        .profile-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* Bio Section */
+        .bio-section {
+            margin-top: 20px;
+        }
+
+        .bio-text {
+            width: 97%;
+            height: 150px;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: none;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Edit Bio Button */
+        .edit-bio-btn {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .edit-bio-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Profile Picture */
+        .profile-pic-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #333;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-pic-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Adds space between the buttons */
+        }
+
+        .upload-btn {
+            background-color: #4CAF50; /* Green for the upload button */
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: #45a049; /* Darker green on hover */
+            transform: scale(1.05);
+        }
+
+        .delete-btn {
+            background-color: red; /* Red for the delete button */
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000; /* Darker red on hover */
+            transform: scale(1.05);
+        }
+
+
+        /* Divider */
+        .divider {
+            margin: 30px 0;
+            height: 1px;
+            background-color: #ddd;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Profile Details Section */
+        .profile-details-section {
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            position: static;
+            bottom: 0;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-top: -40px;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            padding: 12px 25px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 200px;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background-color: #cc0000;
+            transform: scale(1.05);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 25px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .profile-btn, .logout-btn {
+                width: 100%;
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+
+            .profile-pic {
+                width: 140px;
+                height: 140px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>To-Do List</h1>
+    </div>
+
+    <div class="container">
+        <h2>Your Profile</h2>
+
+        <div class="divider"></div>
+
+        <!-- Profile Picture Section -->
+<div class="profile-pic-container">
+    <img id="profilePic" class="profile-pic" src="default-profile-pic.jpg" alt="Profile Picture">
+    <input type="file" id="profilePicInput" style="display:none;"> <br>
+    
+    <!-- Container for buttons side by side -->
+    <div class="button-container">
+        <button class="upload-btn" id="changePicBtn">Change Profile Picture</button>
+        <button class="delete-btn" id="deletePicBtn">Delete Profile Picture</button>
+    </div>
+</div>
+
+
+        <div class="divider"></div>
+
+        <div class="profile-details-section">
+            <div class="section">
+                <div class="profile-info">
+                    <p><strong>Full Name:</strong> <span id="fullName"></span></p>
+                    <p><strong>Username:</strong> <span id="username"></span></p>
+                    <p><strong>Email:</strong> <span id="email"></span></p>
+                    <p><strong>Gender:</strong> <span id="gender"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="bio-section">
+            <p><strong>Bio:</strong></p>
+            <textarea class="bio-text" id="bio" placeholder="Write your bio here..."></textarea>
+            <button class="edit-bio-btn" id="saveBioBtn">Save Bio</button>
+        </div>
+
+        <button class="profile-btn" id="backBtn">Back to Tasks</button>
+
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Your Company. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Default Profile Picture
+        const defaultProfilePic = './img/default.png'; // Path to your default image in the "img" folder
+
+        // Get user data from localStorage
+        const fullName = localStorage.getItem('fullName');
+        const username = localStorage.getItem('username');
+        const email = localStorage.getItem('email');
+        const gender = localStorage.getItem('gender');
+        const bio = localStorage.getItem('bio');
+        const profilePic = localStorage.getItem('profilePic');
+
+        // Display user data on the profile page
+        document.getElementById('fullName').textContent = fullName || 'Not available';
+        document.getElementById('username').textContent = username || 'Not available';
+        document.getElementById('email').textContent = email || 'Not available';
+        document.getElementById('gender').textContent = gender || 'Not available';
+        document.getElementById('bio').value = bio || 'Not available';
+
+        // Set the profile picture to either the stored image or the default image
+        const profilePicElement = document.getElementById('profilePic');
+        if (profilePic) {
+            profilePicElement.src = profilePic;
+        } else {
+            // Set to default profile picture if none is found
+            profilePicElement.src = defaultProfilePic;
+        }
+
+        // Save the bio when the user clicks save
+        document.getElementById('saveBioBtn').addEventListener('click', function() {
+            const newBio = document.getElementById('bio').value;
+            localStorage.setItem('bio', newBio);
+        });
+
+        // Change Profile Picture
+        document.getElementById('changePicBtn').addEventListener('click', function() {
+            document.getElementById('profilePicInput').click();
+        });
+
+        document.getElementById('profilePicInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Display the uploaded image
+                    profilePicElement.src = e.target.result;
+                    // Save the image to localStorage
+                    localStorage.setItem('profilePic', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Delete Profile Picture
+        document.getElementById('deletePicBtn').addEventListener('click', function() {
+            // Remove the profile picture from localStorage
+            localStorage.removeItem('profilePic');
+            // Set the profile picture back to the default image
+            profilePicElement.src = defaultProfilePic;
+            // Save the change to localStorage, so it persists
+            localStorage.setItem('profilePic', defaultProfilePic);
+        });
+
+        // Back to Tasks
+        document.getElementById('backBtn').addEventListener('click', function() {
+            window.location.href = 'homepage.html'; 
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            const confirmLogout = confirm("Do you want to logout?");
+            if (confirmLogout) {
+                localStorage.setItem('isLoggedIn', 'false');
+                window.location.href = "index.html";  
+            }
+        });
+
+        // Get the bio textarea element
+        const bioTextarea = document.getElementById('bio');
+
+        bioTextarea.addEventListener('focus', function() {
+            if (bioTextarea.value === 'Not available') {
+                bioTextarea.value = '';
+            }
+        });
+
+        bioTextarea.addEventListener('blur', function() {
+            if (bioTextarea.value === '') {
+                bioTextarea.value = 'Not available';
+            }
+        });
+    </script>
+
+</body>
+</html>

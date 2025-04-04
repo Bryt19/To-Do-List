@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+
+    <style>
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('./img/M\ 1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    color: #fff;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Dashboard Layout */
+.dashboard {
+    width: 295px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 25px;
+    height: 95.5vh;
+    position: fixed;
+    border-radius: 12px;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: 4px 0 18px rgba(0, 0, 0, 0.5);
+    transition: width 0.3s ease;
+}
+
+/* Hover effect for Dashboard */
+.dashboard:hover {
+    width: 323px;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #fff;
+    transition: transform 0.3s ease;
+}
+
+/* Avatar Styles */
+.profile-section img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Avatar Hover Effect */
+.profile-section img:hover {
+    transform: scale(1.1); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); 
+}
+
+/* Avatar Border on Focus */
+.profile-section img:focus {
+    border: 3px solid #4CAF50; 
+}
+
+/* Profile Name Styling */
+.profile-section h3 {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+/* Profile Name Hover Effect */
+.profile-section h3:hover {
+    color: #4CAF50; 
+}
+
+/* Task Section */
+.task-section {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-top: 20px;
+}
+
+.task-section h3 {
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Task Item Styles */
+.task-item {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    font-size: 1.1rem;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.task-item:hover {
+    background-color: #f9f9f9;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.task-text {
+    font-weight: bold;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+.task-date {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* Add Task Button */
+.add-task-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.3rem;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 20px;
+}
+
+.add-task-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.deleted-btn {
+    background-color: red;
+    color: white;
+    padding: 10px 65px;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: all 0.3s ease-in-out; 
+}
+
+.deleted-btn:hover {
+    background-color: #ff4d4d; 
+    transform: scale(1.05); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+}
+
+
+/* Main Container */
+.main-container {
+    margin-left: 280px;
+    padding: 50px;
+    width: calc(100% - 280px);
+    min-height: 100vh;
+    text-decoration: underline;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: margin-left 0.3s ease;
+}
+
+h1 {
+    font-size: 2.7rem;
+    color: #4CAF50;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+}
+
+/* Task Form Styles */
+.task-form {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 650px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-bottom: 40px;
+    transition: transform 0.3s ease;
+    position: relative;
+    margin: 0 auto; 
+}
+
+/* Hover effect for Task Form */
+.task-form:hover {
+    transform: translateX(235px); 
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); 
+}
+
+
+.task-input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Search Bar Section */
+.search-section {
+    margin-bottom: 20px; 
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+/* Focus effect for the search input */
+.search-input:focus {
+    border-color: #4CAF50; 
+    outline: none;
+}
+
+.add-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 100%;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.task-list {
+    list-style: none;
+    padding-left: 0;
+    width: 100%;
+}
+
+/* Task Details Section */
+.task-details {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 14px;
+    padding: 30px;
+    height: 68.55vh;
+    width: 85%;
+    max-width: 550px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    color: #333;
+    display: none;
+    margin: 0 auto;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-91.5%, -50%); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* New Hover Effect on Task Details */
+.task-details:hover {
+    transform: translate(-80%, -50%) scale(1.05); 
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); 
+    background-color: rgba(255, 255, 255, 1); 
+}
+
+
+/* Header styles */
+#taskDetails h1 {
+    font-weight: bold;               
+    text-decoration: underline;      
+    color: black; 
+    font-size: 2.1rem;
+    letter-spacing: 1px;             
+    margin-bottom: 15px;                  
+    font-family: 'Poppins', sans-serif;                
+}
+
+.task-details h2 {
+    color: #023e7d;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Task Detail Item */
+.task-detail-item {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-detail-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.task-detail-value {
+    padding: 12px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: #333;
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.close-btn:hover {
+    color: #f44336; 
+}
+
+/* Action Buttons */
+.task-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.edit-btn, .delete-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 75px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-btn::before {
+    content: '\270E'; /* Pencil symbol (✏) */
+    margin-right: 8px;
+}
+
+.delete-btn::before {
+    content: '\1F5D1'; /* Trash can symbol (🗑) */
+    margin-right: 8px;
+}
+
+.edit-btn {
+    background-color: #2196F3;
+}
+
+.edit-btn:hover {
+    background-color: #0b7dda;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+}
+
+
+/* Modal Background */
+.edit-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none; 
+}
+
+/* Modal Content */
+.edit-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading for the Edit Task Modal */
+.edit-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Task Input Fields */
+.task-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Status Dropdown */
+.task-detail-item {
+    margin: 10px 0;
+}
+
+.task-detail-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+#editStatus {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+.task-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+#saveEditBtn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+#saveEditBtn:hover {
+    background-color: #45a049;
+}
+
+#cancelEditBtn {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+#cancelEditBtn:hover {
+    background-color: #e53935;
+}
+
+/* Add some spacing between the buttons */
+.task-btn + .task-btn {
+    margin-top: 10px;
+}
+
+/* Style the dropdown toggle button */
+.toggle-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Rotate the icon when tasks are visible */
+.toggle-btn.open {
+    transform: rotate(180deg);
+}
+
+
+/* Initially hide the task list */
+.task-list {
+    list-style: none;
+    padding-left: 0;
+    display: none; 
+    margin-top: 10px;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+    overflow: hidden; 
+}
+
+/* Show the task list when visible */
+.task-list.visible {
+    display: block; 
+    max-height: 1000px; 
+    padding: 10px 0;
+}
+
+
+/* Footer */
+.footer {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    padding: 12px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-size: 1rem;
+}
+
+</style>
+</head>
+<body>
+
+   <!-- Dashboard Section -->
+<div class="dashboard">
+    <!-- Profile Section -->
+    <div class="profile-section">
+        <!-- Link the profile picture to profile.html -->
+        <a href="profile.html">
+            <img id="profilePic" src="./img/default-profile.jpg" alt="Profile Picture">
+        </a>
+        <h3 id="profileName">My Profile</h3>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="search-section">
+        <input type="text" id="taskSearchInput" class="search-input" placeholder="Search tasks..." />
+    </div>
+
+    <!-- Task Section -->
+<div class="task-section">
+    <h3>
+        My Tasks
+        <button id="toggleTasksBtn" class="toggle-btn">&#x25BC;</button> <!-- Dropdown icon -->
+    </h3>
+
+    <!-- Task List -->
+    <ul id="taskList" class="task-list">
+        <!-- Task items will be here -->
+    </ul>
+
+    <!-- Divider under the tasks -->
+    <hr class="task-divider">
+    
+
+    <!-- Deleted Tasks Button -->
+    <a href="delete.html">
+        <button id="deletedTasksBtn" class="deleted-btn">Deleted Tasks</button>
+    </a>
+</div>
+</div>
+
+<!-- Main Container (Content) -->
+<div class="main-container">
+    <h1>To-Do List</h1>
+
+    <!-- Task Form Section -->
+    <div class="task-form">
+        <!-- Task text input -->
+        <input type="text" id="taskInput" class="task-input" placeholder="Enter a task">
+
+        <!-- Start Date input -->
+        <input type="datetime-local" id="startDate" class="task-input" placeholder="Start Date">
+
+        <!-- Due Date input -->
+        <input type="datetime-local" id="dueDate" class="task-input" placeholder="Due Date">
+
+        <!-- Status Dropdown -->
+        <select id="status" class="task-input">
+            <option value="*" disabled selected>Select Status</option>
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="Pending">Pending</option>
+        </select>
+
+        <!-- Create Task Button -->
+        <button id="createTaskBtn" class="add-btn">Create Task</button>
+    </div>
+
+
+
+<!-- Task Details Section -->
+<div id="taskDetails" class="task-details">
+    <!-- Close Button -->
+    <button id="closeModalBtn" class="close-btn" title="Close Task Details">&times;</button>
+    <strong><h1><u>Task Details</u></h1></strong>
+    
+    <h2 id="detailTitle">Task Details</h2>
+    
+    <div class="task-detail-item">
+        <div class="task-detail-label">Task</div>
+        <div id="detailText" class="task-detail-value"></div>
+    </div>
+    
+    <div class="task-detail-item">
+        <div class="task-detail-label">Start Date</div>
+        <div id="detailStartDate" class="task-detail-value"></div>
+    </div>
+    
+    <div class="task-detail-item">
+        <div class="task-detail-label">Due Date</div>
+        <div id="detailDueDate" class="task-detail-value"></div>
+    </div>
+    
+    <div class="task-detail-item">
+        <div class="task-detail-label">Status</div>
+        <div id="detailStatus" class="task-detail-value status-pending">Pending</div> <!-- Default status -->
+    </div>
+    
+    
+    <div class="task-actions">
+        <button id="detailEditBtn" class="edit-btn" title="Edit Task">Edit</button>
+        <button id="detailDeleteBtn" class="delete-btn" title="Delete Task">Delete</button>
+    </div>
+</div>
+
+<!-- Edit Task Modal -->
+<div id="editModal" class="edit-container">
+    <div class="edit-content">
+        <h2>Edit Task</h2>
+        
+        <!-- Task text input -->
+        <input type="text" id="editTaskText" class="task-input" placeholder="Task text">
+        
+        <!-- Start Date input -->
+        <input type="datetime-local" id="editStartDate" class="task-input" placeholder="Start Date">
+        
+        <!-- Due Date input -->
+        <input type="datetime-local" id="editDueDate" class="task-input" placeholder="Due Date">
+        
+        <!-- Status Dropdown -->
+        <div class="task-detail-item">
+            <div class="task-detail-label">Status</div>
+            <select id="editStatus" class="task-input">
+                <option value="*" disabled selected>Select Status</option>
+                <option value="Not Completed">Not Completed</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <button id="saveEditBtn" class="task-btn">Save</button>
+        <button id="cancelEditBtn" class="task-btn">Cancel</button>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 To-Do List. All Rights Reserved.</p>
+</div>
+
+
+    <script>
+       // Select HTML elements
+const profilePic = localStorage.getItem('profilePic');
+const profileName = localStorage.getItem('profileName');
+const taskInput = document.getElementById('taskInput');
+const startDateInput = document.getElementById('startDate');
+const dueDateInput = document.getElementById('dueDate');
+const statusSelect = document.getElementById('status');
+const createTaskBtn = document.getElementById('createTaskBtn');
+const taskList = document.getElementById('taskList');
+const editModal = document.getElementById('editModal');
+const editTaskText = document.getElementById('editTaskText');
+const editStartDate = document.getElementById('editStartDate');
+const editDueDate = document.getElementById('editDueDate');
+const editStatus = document.getElementById('editStatus');
+const saveEditBtn = document.getElementById('saveEditBtn');
+const cancelEditBtn = document.getElementById('cancelEditBtn');
+
+// Task Details Elements
+const taskDetails = document.getElementById('taskDetails');
+const detailTitle = document.getElementById('detailTitle');
+const detailText = document.getElementById('detailText');
+const detailStartDate = document.getElementById('detailStartDate');
+const detailDueDate = document.getElementById('detailDueDate');
+const detailStatus = document.getElementById('detailStatus');
+const detailEditBtn = document.getElementById('detailEditBtn');
+const detailDeleteBtn = document.getElementById('detailDeleteBtn');
+
+// Get user ID from localStorage or create a default
+const userID = localStorage.getItem('userID') || 'default';
+
+// Initialize tasks from localStorage
+let tasks = JSON.parse(localStorage.getItem(`tasks_${userID}`)) || [];
+let currentTaskId = null;
+
+// Set profile picture and name
+if (profilePic) {
+    const profileImage = document.getElementById('profilePic');
+    profileImage.src = profilePic;
+}
+if (profileName) {
+    document.getElementById('profileName').textContent = profileName;
+}
+
+// Add task to list
+createTaskBtn.addEventListener('click', createTask);
+
+// Create task function
+function createTask() {
+    const taskText = taskInput.value.trim();
+    const startDate = startDateInput.value;
+    const dueDate = dueDateInput.value;
+    const status = statusSelect.value;
+
+    if (taskText && startDate && dueDate) {
+        const task = {
+            id: Date.now(),
+            text: taskText,
+            startDate: startDate,
+            dueDate: dueDate,
+            status: status, 
+            completed: false
+        };
+        tasks.push(task);
+        localStorage.setItem(`tasks_${userID}`, JSON.stringify(tasks));
+        renderTasks();
+        taskInput.value = '';
+        startDateInput.value = '';
+        dueDateInput.value = '';
+        statusSelect.value = 'Not Started'; 
+    } else {
+        alert('Please fill out all fields');
+    }
+}
+
+// Get the search input element
+const taskSearchInput = document.getElementById('taskSearchInput');
+
+// Function to filter tasks based on the search term
+taskSearchInput.addEventListener('input', function() {
+    const searchTerm = taskSearchInput.value.toLowerCase();
+    const tasks = document.querySelectorAll('#taskList .task-item');
+    
+    tasks.forEach(task => {
+        const taskText = task.querySelector('.task-text').textContent.toLowerCase();
+        
+        // If the task text includes the search term, show it, otherwise hide it
+        if (taskText.includes(searchTerm)) {
+            task.style.display = 'block'; // Show task
+        } else {
+            task.style.display = 'none'; // Hide task
+        }
+    });
+});
+
+
+
+// Render tasks
+function renderTasks() {
+    taskList.innerHTML = '';
+
+    tasks.forEach(task => {
+        const taskItem = document.createElement('li');
+        taskItem.classList.add('task-item');
+        taskItem.dataset.id = task.id;
+
+        const taskText = document.createElement('div');
+        taskText.classList.add('task-text');
+        taskText.textContent = task.text;
+
+        // Apply line-through and opacity for completed tasks
+        if (task.completed) {
+            taskText.style.textDecoration = 'line-through';
+            taskItem.style.opacity = '0.7';
+        }
+
+        const taskStatus = document.createElement('div');
+        taskStatus.classList.add('task-status');
+        taskStatus.textContent = `Status: ${task.status}`;
+
+        const taskDueDate = document.createElement('div');
+        taskDueDate.classList.add('task-date');
+        taskDueDate.textContent = `Due: ${formatDate(task.dueDate)}`;
+
+        // Add task item click event
+        taskItem.addEventListener('click', function() {
+            showTaskDetails(task.id);
+        });
+
+        taskItem.appendChild(taskText);
+        taskItem.appendChild(taskStatus);
+        taskItem.appendChild(taskDueDate);
+        
+        taskList.appendChild(taskItem);
+    });
+}
+
+// Show task details
+function showTaskDetails(taskId) {
+    const task = tasks.find(t => t.id === parseInt(taskId));
+    if (!task) return;
+    
+    currentTaskId = task.id;
+    
+    // Set the details
+    detailTitle.textContent = task.text;
+    detailText.textContent = task.text;
+    detailStartDate.textContent = formatDateFull(task.startDate);
+    detailDueDate.textContent = formatDateFull(task.dueDate);
+    detailStatus.textContent = task.status;
+
+    // Show the task details section
+    taskDetails.style.display = 'block';
+
+    // Scroll to task details if on mobile
+    if (window.innerWidth < 768) {
+        taskDetails.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+document.getElementById("closeModalBtn").addEventListener("click", function() {
+    // Close the modal (hide only the task details modal)
+    document.getElementById("taskDetails").style.display = "none"; // Hides only the modal
+
+});
+
+
+// Format date for better display (short version)
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleString(undefined, {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+// Format date for better display (full version)
+function formatDateFull(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleString(undefined, {
+        weekday: 'long',
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+
+
+// Edit button in detail view
+detailEditBtn.addEventListener('click', function() {
+    openEditModal(currentTaskId);
+});
+
+// Delete button in detail view
+detailDeleteBtn.addEventListener('click', function() {
+    if (confirm('Are you sure you want to delete this task?')) {
+        deleteTask(currentTaskId);
+        taskDetails.style.display = 'none';
+    }
+});
+
+    // JavaScript to toggle the task list visibility
+document.getElementById("toggleTasksBtn").addEventListener("click", function() {
+    var taskList = document.getElementById("taskList");
+    var toggleBtn = document.getElementById("toggleTasksBtn");
+
+    // Toggle the 'visible' class to show/hide the task list
+    taskList.classList.toggle("visible");
+
+    // Toggle the rotation of the dropdown icon
+    toggleBtn.classList.toggle("open");
+});
+
+
+// Open edit modal
+function openEditModal(taskId) {
+    const task = tasks.find(t => t.id === parseInt(taskId));
+    if (task) {
+        editTaskText.value = task.text;
+        editStartDate.value = task.startDate;
+        editDueDate.value = task.dueDate;
+        editStatus.value = task.status; // Set the status in the modal
+        
+        currentTaskId = task.id;
+        editModal.style.display = 'flex';
+    }
+}
+
+// Save edited task
+saveEditBtn.addEventListener('click', function() {
+    const taskText = editTaskText.value.trim();
+    const startDate = editStartDate.value;
+    const dueDate = editDueDate.value;
+    const status = editStatus.value; // Get status from the modal
+
+    if (taskText && startDate && dueDate) {
+        const taskIndex = tasks.findIndex(task => task.id === currentTaskId);
+        
+        if (taskIndex !== -1) {
+            tasks[taskIndex].text = taskText;
+            tasks[taskIndex].startDate = startDate;
+            tasks[taskIndex].dueDate = dueDate;
+            tasks[taskIndex].status = status; // Update the status
+
+            localStorage.setItem(`tasks_${userID}`, JSON.stringify(tasks));
+            renderTasks();
+            editModal.style.display = 'none';
+            
+            // Update details view if open
+            if (taskDetails.style.display === 'block') {
+                showTaskDetails(currentTaskId);
+            }
+        }
+    } else {
+        alert('Please fill out all fields');
+    }
+});
+
+// Delete task
+function deleteTask(taskId) {
+    // Find the task to be deleted
+    const deletedTask = tasks.find(task => task.id === parseInt(taskId));
+
+    if (deletedTask) {
+        // Add the current date and time to the task's deletedAt property
+        deletedTask.deletedAt = new Date().toISOString(); // Save the deletion timestamp
+        
+        // Remove the task from the main tasks list
+        tasks = tasks.filter(task => task.id !== parseInt(taskId));
+
+        // Save the updated tasks list to localStorage
+        localStorage.setItem(`tasks_${userID}`, JSON.stringify(tasks));
+
+        // Retrieve the existing deleted tasks from localStorage (if any)
+        let deletedTasks = JSON.parse(localStorage.getItem('deletedTasks')) || [];
+
+        // Push the deleted task into the deletedTasks array
+        deletedTasks.push(deletedTask);
+
+        // Save the updated deleted tasks list back to localStorage
+        localStorage.setItem('deletedTasks', JSON.stringify(deletedTasks));
+
+        // Re-render tasks on homepage
+        renderTasks();
+    }
+}
+
+// Toggle task completion
+function toggleTaskCompletion(taskId) {
+    const taskIndex = tasks.findIndex(task => task.id === parseInt(taskId));
+    if (taskIndex !== -1) {
+        tasks[taskIndex].completed = !tasks[taskIndex].completed;
+        localStorage.setItem(`tasks_${userID}`, JSON.stringify(tasks));
+        renderTasks();
+        
+        // Update details view if open
+        if (taskDetails.style.display === 'block' && currentTaskId === parseInt(taskId)) {
+            showTaskDetails(currentTaskId);
+        }
+    }
+}
+
+// Cancel edit
+cancelEditBtn.addEventListener('click', function() {
+    editModal.style.display = 'none';
+});
+
+// Close modal if clicking outside
+window.addEventListener('click', function(event) {
+    if (event.target === editModal) {
+        editModal.style.display = 'none';
+    }
+});
+
+// Array of background image URLs
+const backgrounds = [
+    './img/M 1.jpg',  // First image
+    './img/A 2.jpg',
+    './img/A 4.jpg',
+    './img/B 1.jpg',
+    './img/B 2.jpg',
+    './img/B 3.jpg',
+    './img/B 4.jpg',
+    './img/C 1.jpg',
+    './img/C 2.jpg',
+    './img/C 3.jpg',
+    './img/C 4.jpg',
+];
+
+// Function to change the background image
+function changeBackground() {
+    // Get a random index from the backgrounds array
+    const randomIndex = Math.floor(Math.random() * backgrounds.length);
+    // Set the background image of the body
+    document.body.style.backgroundImage = `url('${backgrounds[randomIndex]}')`;
+}
+
+// Initial background change
+changeBackground();
+
+// Change the background every 5 minutes (300000 milliseconds)
+setInterval(changeBackground, 300000);
+
+
+// Initialize tasks on page load
+renderTasks();
+
+
+    </script>
+
+</body>
+</html>

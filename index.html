@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('./img/s 1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-image 0.3s ease-in-out;
+            color: #333;
+            overflow: hidden;
+        }
+
+        .navbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar h1 {
+            font-size: 2.4rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .navbar:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar h1:hover {
+            color: #00b4d8;
+        }
+
+        .container {
+            background: linear-gradient(135deg, rgba(104, 158, 222, 0.85), rgba(67, 138, 154, 0.85), rgba(155, 174, 188, 0.85)); 
+            padding: 35px;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2); 
+            backdrop-filter: blur(12px); 
+            margin-top: 100px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .container:hover {
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.25); 
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #000;
+            font-weight: 600;
+        }
+
+        label {
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 18px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            font-size: 1.1rem;
+            background-color: #f9f9f9;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+            background-color: #fff;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2rem;
+            transition: background-color 0.3s, transform 0.2s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            transform: translateY(-3px); 
+        }
+
+        input[type="submit"]:active {
+            transform: translateY(0); 
+        }
+
+        .message,
+        .valid {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+
+        .message {
+            color: #ff4d4d; 
+        }
+
+        .valid {
+            color: #1DE9B6; 
+        }
+
+        .sign-in-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .sign-in-link a {
+            color: #5a2fc3; 
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+
+        .sign-in-link a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 12px 20px;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        footer p {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            input[type="submit"] {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Overall container */
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5); 
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 120px; 
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(75, 0, 130, 1), rgba(0, 0, 0, 1), rgba(0, 255, 255, 1)); 
+            background-size: 200% 200%;
+            animation: spin 1s linear infinite, gradientSpin 2.5s ease-in-out infinite; 
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 139, 0.7), 0 0 50px rgba(0, 0, 0, 0.5), 0 0 80px rgba(70, 130, 180, 0.4); 
+        }
+
+        /* Spin animation */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Gradient movement animation */
+        @keyframes gradientSpin {
+            0% {
+                background-position: 200% 200%;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        /* Eye Icon Styles */
+        .password-container {
+            position: relative;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 43%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.5rem; 
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .eye-icon:hover {
+            color: #00b4d8;
+        }
+
+        /* Closed Eye (Cancel) Icon Styles */
+        .closed-eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 40%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.3rem; 
+            color: #ff4d4d;
+            transition: color 0.3s ease;
+        }
+
+        .closed-eye-icon:hover {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h1>To-Do List</h1>
+</div>
+
+<div class="loading-container">
+    <div class="spinner"></div>
+</div>
+
+<div class="container">
+    <h2>Login to Your Account</h2>
+    <form id="loginForm" onsubmit="return handleLogin(event)">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+        <label for="password">Password</label>
+        <div class="password-container">
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <span id="showPassword" class="eye-icon">&#128065;</span>
+            <span id="hidePassword" class="closed-eye-icon" style="display: none;">&#128064;</span>
+        </div>
+
+        <input type="submit" value="Login">
+        <div id="validationMessage" class="message"></div>
+
+        <div class="sign-in-link">
+            <p>Don't have an account? <a href="registration.html">Sign Up</a></p>
+        </div>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2025 To-Do List. All rights reserved.</p>
+</footer>
+
+<script>
+    function handleLogin(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const validationMessage = document.getElementById('validationMessage');
+
+        const storedUsername = localStorage.getItem('username');
+        const storedPassword = localStorage.getItem('password');
+
+        validationMessage.textContent = "";
+
+        if (username === storedUsername && password === storedPassword) {
+            validationMessage.textContent = "Login successful! Redirecting to homepage...";
+            validationMessage.className = "valid"; // Success message
+
+            setTimeout(() => {
+                window.location.href = "homepage.html"; 
+            }, 2000); // Redirect after 2 seconds
+        } else {
+            // Show error message if credentials don't match
+            validationMessage.textContent = "Invalid username or password.";
+            validationMessage.className = "message"; // Error message
+        }
+
+        localStorage.setItem("userLoggedIn", true);  
+        localStorage.setItem("avatar", "path-to-avatar.jpg");  
+    }
+
+    const showPasswordIcon = document.getElementById('showPassword');
+    const hidePasswordIcon = document.getElementById('hidePassword');
+    const passwordField = document.getElementById('password');
+
+    showPasswordIcon.addEventListener('click', function() {
+        passwordField.type = 'text'; // Show password
+        showPasswordIcon.style.display = 'none'; // Hide the show icon
+        hidePasswordIcon.style.display = 'inline'; // Show the closed eye icon
+    });
+
+    hidePasswordIcon.addEventListener('click', function() {
+        passwordField.type = 'password'; // Hide password
+        hidePasswordIcon.style.display = 'none'; // Hide the closed eye icon
+        showPasswordIcon.style.display = 'inline'; // Show the show icon
+    });
+</script>
+
+</body>
+</html>
