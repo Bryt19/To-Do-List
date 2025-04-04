@@ -680,8 +680,6 @@ h1 {
 </head>
 <body>
 
-    <!-- Toggle Button to show/hide dashboard -->
-<button id="toggleDashboardBtn" class="toggle-dashboard-btn">☰</button>
 
    <!-- Dashboard Section -->
 <div class="dashboard">
@@ -826,13 +824,6 @@ h1 {
 
 
     <script>
-
-        // JavaScript to toggle the dashboard visibility
-document.getElementById('toggleDashboardBtn').addEventListener('click', function() {
-    const dashboard = document.getElementById('dashboard');
-    dashboard.classList.toggle('show'); // Toggle the visibility of the dashboard
-});
-
        // Select HTML elements
 const profilePic = localStorage.getItem('profilePic');
 const profileName = localStorage.getItem('profileName');
