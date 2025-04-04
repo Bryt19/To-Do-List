@@ -565,18 +565,18 @@ h1 {
 @media screen and (max-width: 600px) {
     /* Adjust container padding and width */
     .container {
-        padding: 20px;
-        max-width: 90%;
+        padding: 15px; /* Reduced padding for mobile */
+        max-width: 100%; /* Full width for better responsiveness */
     }
 
     /* Adjust heading sizes */
     h1 {
-        font-size: 1.8rem; /* Adjust for smaller screens */
+        font-size: 1.6rem; /* Smaller header for mobile */
         text-align: center; /* Center align for better readability */
     }
 
     h2 {
-        font-size: 1.6rem; /* Make subheadings smaller */
+        font-size: 1.4rem; /* Smaller subheading */
     }
 
     /* Adjust input field sizes */
@@ -584,26 +584,30 @@ h1 {
     input[type="datetime-local"],
     select,
     .task-input {
-        font-size: 1rem; /* Smaller font for input fields */
-        padding: 12px; /* Adequate padding for usability */
+        font-size: 1rem; /* Slightly smaller font for input fields */
+        padding: 10px; /* Ensure inputs are still usable */
+        width: 100%; /* Ensure inputs use the full width */
+        box-sizing: border-box; /* Include padding in width calculation */
     }
 
-    /* Button adjustments for better touch targets */
+    /* Adjust button sizes */
     .add-btn, .deleted-btn, .task-btn, .edit-btn, .delete-btn {
-        font-size: 1rem; /* Adjust button text size */
-        padding: 12px 18px; /* Provide enough padding for mobile users */
+        font-size: 1rem; /* Button text size for mobile */
+        padding: 10px 15px; /* Adequate padding for touch targets */
+        width: 100%; /* Buttons take full width */
+        margin-bottom: 10px; /* Spacing between buttons */
     }
 
-    /* Make task-form width 100% and adjust margins */
+    /* Make the task form full width */
     .task-form {
         width: 100%;
         max-width: 100%;
         margin-bottom: 20px;
     }
 
-    /* Task section styling */
+    /* Adjust task section heading */
     .task-section h3 {
-        font-size: 1.4rem; /* Smaller heading size */
+        font-size: 1.4rem; /* Smaller task section header */
     }
 
     /* Profile section */
@@ -614,42 +618,44 @@ h1 {
 
     /* Dashboard adjustment */
     .dashboard {
-        width: 100%;
+        width: 100%; /* Full width dashboard */
         padding: 20px;
-        height: auto;
+        height: auto; /* Make height auto so it adjusts with content */
         position: relative;
     }
 
     /* Task details modal adjustments */
     .task-details {
-        width: 90%; /* Make modal width responsive */
-        padding: 20px;
-        top: 15%;
+        width: 90%; /* Modal width adjusted */
+        padding: 15px;
+        top: 10%;
         left: 5%;
-        transform: translate(0, 0); /* Reset transformation */
+        transform: translate(0, 0);
     }
 
-    /* Ensure task list is scrollable on mobile */
+    /* Task list should be scrollable */
     .task-list {
-        max-height: 300px; /* Make task list scrollable */
+        max-height: 300px; /* Limit task list height */
         overflow-y: auto;
     }
 
     /* Task item adjustments */
     .task-item {
-        font-size: 1rem; /* Slightly smaller font */
+        font-size: 1rem; /* Smaller font for task items */
         padding: 12px;
+        margin-bottom: 10px; /* Space between tasks */
     }
 
-    /* Adjust the footer for smaller screens */
+    /* Footer adjustments */
     .footer {
         font-size: 0.9rem;
         padding: 10px 0;
+        text-align: center; /* Center text in footer */
     }
 
     /* Toggle button for tasks */
     .toggle-btn {
-        font-size: 18px; /* Adjust icon size */
+        font-size: 18px;
     }
 
     /* Edit task modal inputs */
@@ -660,13 +666,36 @@ h1 {
 
     .task-actions {
         flex-direction: column; /* Stack buttons vertically */
-        align-items: center; /* Center align action buttons */
-        margin-top: 20px;
+        align-items: center; /* Center the buttons */
+        margin-top: 15px;
     }
 
     .task-actions button {
-        width: 100%; /* Make buttons full width */
+        width: 100%; /* Full-width action buttons */
         margin: 5px 0;
+    }
+
+    /* Sidebar adjustments (if present) */
+    .sidebar {
+        width: 100%; /* Make sidebar take full width on smaller screens */
+        position: relative;
+    }
+
+    /* Ensure that task item layout is responsive */
+    .task-item {
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .task-item .task-content {
+        font-size: 1rem; /* Adjust content font size */
+    }
+
+    /* Adjust margins for smaller screens */
+    .container, .task-item, .task-form {
+        margin-bottom: 10px;
     }
 }
 
