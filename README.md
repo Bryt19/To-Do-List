@@ -19,6 +19,4 @@ This project showcases my skills in front-end web development, focusing on:
 
 Feel free to explore the project, contribute, or create your own customizations!
 
-### Demo:
-You can try the live demo or see the app in action here (if available).
 
