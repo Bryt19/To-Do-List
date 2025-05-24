@@ -1,326 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form - To-Do List</title>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elite Login - To-Do List</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap');
 
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-image: url('./img/s 1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            transition: background-image 0.3s ease-in-out;
-            color: #333;
-            overflow: hidden;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .navbar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            width: 100%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease;
-        }
+    body {
+      font-family: 'Outfit', sans-serif;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
 
-        .navbar h1 {
-            font-size: 2.4rem;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-            transition: color 0.3s ease;
-        }
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      transition: all 0.3s ease-in-out;
+    }
 
-        .navbar:hover {
-            background-color: rgba(0, 0, 0, 0.9);
-        }
+    .container:hover {
+      box-shadow: 0 0 60px rgba(0, 255, 255, 0.4);
+      transform: translateY(-5px);
+    }
 
-        .navbar h1:hover {
-            color: #00b4d8;
-        }
+    .navbar {
+      position: absolute;
+      top: 30px;
+      text-align: center;
+      width: 100%;
+    }
 
-        .container {
-            background: linear-gradient(135deg, rgba(104, 158, 222, 0.85), rgba(67, 138, 154, 0.85), rgba(155, 174, 188, 0.85)); 
-            padding: 35px;
-            width: 100%;
-            max-width: 450px;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2); 
-            backdrop-filter: blur(12px); 
-            margin-top: 100px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-        }
+    .navbar h1 {
+      color: #0ff;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
 
-        .container:hover {
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.25); 
-        }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffffcc;
+    }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2rem;
-            color: #000;
-            font-weight: 600;
-        }
+    label {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #ffffffcc;
+      margin-bottom: 5px;
+      display: block;
+    }
 
-        label {
-            font-weight: 600;
-            color: #000;
-            margin-bottom: 10px;
-            display: block;
-        }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.1);
+      outline: none;
+      transition: all 0.3s ease;
+    }
 
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 14px 18px;
-            margin-top: 8px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            border: 1px solid #ddd;
-            font-size: 1.1rem;
-            background-color: #f9f9f9;
-            color: #333;
-            transition: all 0.3s ease;
-        }
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+    }
 
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #4CAF50;
-            outline: none;
-            background-color: #fff;
-        }
+    input[type="submit"] {
+      background: linear-gradient(90deg, #00feca, #00c2ff);
+      border: none;
+      padding: 14px;
+      width: 100%;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      color: #000;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1.2rem;
-            transition: background-color 0.3s, transform 0.2s ease;
-        }
+    input[type="submit"]:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+    }
 
-        input[type="submit"]:hover {
-            background-color: #45a049;
-            transform: translateY(-3px); 
-        }
+    .message,
+    .valid {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1rem;
+    }
 
-        input[type="submit"]:active {
-            transform: translateY(0); 
-        }
+    .message {
+      color: #ff4d4d;
+    }
 
-        .message,
-        .valid {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 1rem;
-        }
+    .valid {
+      color: #00ff99;
+    }
 
-        .message {
-            color: #ff4d4d; 
-        }
+    .sign-in-link {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        .valid {
-            color: #1DE9B6; 
-        }
+    .sign-in-link a {
+      color: #00f0ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-        .sign-in-link {
-            text-align: center;
-            margin-top: 25px;
-        }
+    .sign-in-link a:hover {
+      text-decoration: underline;
+    }
 
-        .sign-in-link a {
-            color: #5a2fc3; 
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.2s ease;
-        }
+    .password-container {
+      position: relative;
+    }
 
-        .sign-in-link a:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }
+    .eye-icon {
+      position: absolute;
+      top: 46%;
+      right: 14px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #0ff;
+    }
 
-        footer {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            text-align: center;
-            padding: 12px 20px;
-            width: 100%;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
-        }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #999;
+      font-size: 0.9rem;
+    }
 
-        footer p {
-            font-size: 1rem;
-            margin: 0;
-        }
-
-        /* Responsive Design */
-        @media screen and (max-width: 600px) {
-            .container {
-                padding: 20px;
-                max-width: 90%;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            input[type="submit"] {
-                font-size: 1.1rem;
-            }
-        }
-
-        /* Eye Icon Styles */
-        .password-container {
-            position: relative;
-        }
-
-        .eye-icon {
-            position: absolute;
-            right: 10px;
-            top: 43%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 1.5rem; 
-            color: #333;
-            transition: color 0.3s ease;
-        }
-
-        .eye-icon:hover {
-            color: #00b4d8;
-        }
-
-        /* Closed Eye (Cancel) Icon Styles */
-        .closed-eye-icon {
-            position: absolute;
-            right: 10px;
-            top: 40%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 1.3rem; 
-            color: #ff4d4d;
-            transition: color 0.3s ease;
-        }
-
-        .closed-eye-icon:hover {
-            color: #ff0000;
-        }
-    </style>
+    @media screen and (max-width: 480px) {
+      .container {
+        padding: 30px;
+        margin: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="navbar">
-    <h1>To-Do List</h1>
-</div>
+  <div class="navbar">
+    <h1>To-Do Elite</h1>
+  </div>
 
-<div class="loading-container">
-    <div class="spinner"></div>
-</div>
-
-<div class="container">
-    <h2>Login to Your Account</h2>
+  <div class="container">
+    <h2>Welcome Back</h2>
     <form id="loginForm" onsubmit="return handleLogin(event)">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="e.g. johndoe123" required>
 
-        <label for="password">Password</label>
-        <div class="password-container">
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            <span id="showPassword" class="eye-icon">&#128065;</span>
-            <span id="hidePassword" class="closed-eye-icon" style="display: none;">&#128064;</span>
-        </div>
+      <label for="password">Password</label>
+      <div class="password-container">
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <span id="togglePassword" class="eye-icon">&#128065;</span>
+      </div>
 
-        <input type="submit" value="Login">
-        <div id="validationMessage" class="message"></div>
+      <input type="submit" value="Log In">
+      <div id="validationMessage" class="message"></div>
 
-        <div class="sign-in-link">
-            <p>Don't have an account? <a href="registration.html">Sign Up</a></p>
-        </div>
+      <div class="sign-in-link">
+        <p>Don't have an account? <a href="registration.html">Sign up</a></p>
+      </div>
     </form>
-</div>
+  </div>
 
-<footer>
-    <p>&copy; 2025 To-Do List. All rights reserved.</p>
-</footer>
+  <footer>
+    <p>&copy; 2025 To-Do Elite. Crafted with precision.</p>
+  </footer>
 
-<script>
+  <script>
     function handleLogin(event) {
-        event.preventDefault();
+      event.preventDefault();
 
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const validationMessage = document.getElementById('validationMessage');
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const message = document.getElementById('validationMessage');
 
-        const storedUsername = localStorage.getItem('username');
-        const storedPassword = localStorage.getItem('password');
+      const storedUsername = localStorage.getItem('username');
+      const storedPassword = localStorage.getItem('password');
 
-        validationMessage.textContent = "";
-
-        if (username === storedUsername && password === storedPassword) {
-            validationMessage.textContent = "Login successful! Redirecting to homepage...";
-            validationMessage.className = "valid"; // Success message
-
-            setTimeout(() => {
-                window.location.href = "homepage.html"; 
-            }, 2000); // Redirect after 2 seconds
-        } else {
-            // Show error message if credentials don't match
-            validationMessage.textContent = "Invalid username or password.";
-            validationMessage.className = "message"; // Error message
-        }
-
-        localStorage.setItem("userLoggedIn", true);  
-        localStorage.setItem("avatar", "path-to-avatar.jpg");  
+      if (username === storedUsername && password === storedPassword) {
+        message.textContent = "Access granted. Redirecting...";
+        message.className = "valid";
+        setTimeout(() => {
+          window.location.href = "homepage.html";
+        }, 2000);
+      } else {
+        message.textContent = "Incorrect credentials. Please try again.";
+        message.className = "message";
+      }
     }
 
-    const showPasswordIcon = document.getElementById('showPassword');
-    const hidePasswordIcon = document.getElementById('hidePassword');
-    const passwordField = document.getElementById('password');
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordField = document.getElementById("password");
 
-    showPasswordIcon.addEventListener('click', function() {
-        passwordField.type = 'text'; // Show password
-        showPasswordIcon.style.display = 'none'; // Hide the show icon
-        hidePasswordIcon.style.display = 'inline'; // Show the closed eye icon
+    togglePassword.addEventListener("click", () => {
+      const type = passwordField.type === "password" ? "text" : "password";
+      passwordField.type = type;
     });
-
-    hidePasswordIcon.addEventListener('click', function() {
-        passwordField.type = 'password'; // Hide password
-        hidePasswordIcon.style.display = 'none'; // Hide the closed eye icon
-        showPasswordIcon.style.display = 'inline'; // Show the show icon
-    });
-</script>
+  </script>
 
 </body>
 </html>
