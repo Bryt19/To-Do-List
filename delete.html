@@ -1,369 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <style>
-        /* General Styling */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #e4eaf0, #d4e7f3);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deleted Tasks</title>
+  <style>
+    :root {
+      --primary: #1e88e5;
+      --danger: #e53935;
+      --bg: #f0f2f5;
+      --card: #ffffff;
+      --text: #1e1e1e;
+      --muted: #777;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --radius: 16px;
+    }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-top: 50px;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* Navbar Styling */
-        nav {
-            background-color: #333;
-            padding: 12px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        nav .title {
-            color: white;
-            font-size: 28px;
-            font-weight: 600;
-        }
+    header, footer {
+      background-color: #1e1e2f;
+      color: white;
+      text-align: center;
+      padding: 1rem 2rem;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 12px 25px;
-            margin: 0 12px;
-            font-size: 16px;
-            text-transform: uppercase;
-        }
+    main {
+      flex: 1;
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
 
-        nav a:hover {
-            background-color: #555;
-            border-radius: 4px;
-        }
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      background: #fff;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px var(--shadow);
+    }
 
-        /* Task Container */
-        .task-container {
-            width: 80%;
-            max-width: 700px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
-        }
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
 
-        .task-container:hover {
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
+    .title-bar h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
 
-        .task-list {
-            list-style-type: none;
-            padding: 0;
-        }
+    .title-bar a {
+      background: var(--primary);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-        .task-list li {
-            background-color: #f9f9f9;
-            margin: 18px 0;
-            padding: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
-        }
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
 
-        .task-list li:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
+    .task-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px var(--shadow);
+      padding: 1.5rem;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
 
-        .task-list li p {
-            margin: 0;
-            font-size: 16px;
-            color: #333;
-        }
+    .task-card:hover {
+      transform: translateY(-5px);
+    }
 
-        /* Empty Task Message */
-        .no-tasks-message {
-            text-align: center;
-            color: #666;
-            font-size: 18px;
-            padding: 20px;
-            background-color: #f4f4f9;
-            border-radius: 8px;
-        }
+    .task-card h3 {
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
 
-        /* Task Actions */
-        .task-actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
+    .task-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
 
-        .task-actions button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            width: 48%;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+    .empty-state {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.2rem;
+      padding: 3rem;
+      grid-column: 1/-1;
+    }
 
-        .task-actions .permanent-delete-btn {
-            background-color: #f44336;
-        }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
 
-        .task-actions .permanent-delete-btn:hover {
-            background-color: #d32f2f;
-        }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+    }
 
-        .task-actions button:hover {
-            background-color: #45a049;
-            transform: translateY(-3px);
-        }
+    .modal-content h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
 
-        /* Back to homepage button */
-        .back-btn {
-            display: block;
-            width: 220px;
-            margin-top: 30px;
-            background-color: #3f37c9;
-            color: white;
-            font-size: 16px;
-            padding: 12px;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            cursor: pointer;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
-        }
+    .modal-content p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
 
-        .back-btn:hover {
-            background-color: #00b4d8;
-        }
+    .close-btn {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
 
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            font-size: 14px;
-        }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1.5rem;
+    }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 60%;
-            max-width: 600px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .modal-content h2 {
-            margin-top: 0;
-            font-size: 24px;
-            color: #333;
-        }
-
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close-btn:hover,
-        .close-btn:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Warning Message */
-        .warning-message {
-            background-color: #ffeb3b;
-            padding: 12px;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-size: 14px;
-            text-align: center;
-            color: #d32f2f;
-        }
-
-            /* Responsive Design */
-        @media screen and (max-width: 600px) {
-            .container {
-                padding: 20px;
-                max-width: 90%;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            input[type="submit"] {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+    .modal-actions button {
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--danger);
+      color: white;
+      cursor: pointer;
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <h1>To-Do Elite</h1>
+  </header>
 
-    <!-- Navbar -->
-    <nav>
-        <div class="title">To-Do List</div>
-    </nav>
-
-    <h1>Deleted Tasks</h1>
-
-    <div class="task-container">
-        <ul id="deletedTaskList" class="task-list">
-            <!-- Deleted tasks will be listed here -->
-        </ul>
+  <main>
+    <div class="container">
+      <div class="title-bar">
+        <h1>Deleted Tasks</h1>
+        <a href="homepage.html">← Back</a>
+      </div>
+      <div id="taskGrid" class="task-grid"></div>
     </div>
+  </main>
 
-    <a href="homepage.html">
-        <button class="back-btn">Back to My Tasks</button>
-    </a>
+  <footer>
+    &copy; 2025 To-Do Elite
+  </footer>
 
-    <footer>
-        <p>&copy; 2025 My Task Manager. All rights reserved.</p>
-    </footer>
-
-    <!-- Modal -->
-    <div id="taskModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Task Details</h2>
-            <p><strong>Task:</strong> <span id="modalTaskText"></span></p>
-            <p><strong>Deleted Date:</strong> <span id="modalDeletedDate"></span></p>
-            <p><strong>Start Date:</strong> <span id="modalStartDate"></span></p>
-            <p><strong>End Date:</strong> <span id="modalEndDate"></span></p>
-            <p><strong>Status:</strong> <span id="modalTaskStatus"></span></p>
-            <div class="task-actions">
-                <button class="permanent-delete-btn" onclick="permanentDeleteTask()">Delete Permanently</button>
-            </div>
-        </div>
+  <div id="taskModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2>Task Details</h2>
+      <p><strong>Task:</strong> <span id="modalText"></span></p>
+      <p><strong>Deleted On:</strong> <span id="modalDeleted"></span></p>
+      <p><strong>Start Date:</strong> <span id="modalStart"></span></p>
+      <p><strong>End Date:</strong> <span id="modalEnd"></span></p>
+      <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+      <div class="modal-actions">
+        <button onclick="permanentlyDelete()">Delete Permanently</button>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // Retrieve deleted tasks from localStorage
-        const deletedTasks = JSON.parse(localStorage.getItem('deletedTasks')) || [];
+  <script>
+    const tasks = JSON.parse(localStorage.getItem('deletedTasks')) || [];
+    let current = null;
 
-        let currentTask = null; // Variable to store the task currently being viewed in the modal
+    const taskGrid = document.getElementById('taskGrid');
 
-        // Function to permanently delete a task with a warning
-        function permanentDeleteTask() {
-            const confirmation = window.confirm('Are you sure you want to permanently delete this task? This action cannot be undone.');
-            if (confirmation) {
-                const taskToDelete = currentTask;
+    function showTasks() {
+      taskGrid.innerHTML = '';
+      if (!tasks.length) {
+        taskGrid.innerHTML = '<div class="empty-state">No deleted tasks available.</div>';
+        return;
+      }
 
-                // Remove task permanently from deleted tasks
-                const updatedDeletedTasks = deletedTasks.filter(task => task.id !== taskToDelete.id);
-                localStorage.setItem('deletedTasks', JSON.stringify(updatedDeletedTasks));
+      tasks.forEach(task => {
+        const div = document.createElement('div');
+        div.className = 'task-card';
+        div.innerHTML = `
+          <h3>${task.text || 'Untitled Task'}</h3>
+          <p>Status: ${task.status || 'Unknown'}</p>
+          <p>Deleted: ${new Date(task.deletedAt).toLocaleString() || 'N/A'}</p>
+        `;
+        div.onclick = () => openModal(task);
+        taskGrid.appendChild(div);
+      });
+    }
 
-                // Remove task from the DOM immediately
-                const taskItem = document.getElementById('task-' + taskToDelete.id);
-                if (taskItem) {
-                    taskItem.remove();
-                }
+    function openModal(task) {
+      current = task;
+      document.getElementById('modalText').textContent = task.text;
+      document.getElementById('modalDeleted').textContent = new Date(task.deletedAt).toLocaleString();
+      document.getElementById('modalStart').textContent = task.startDate ? new Date(task.startDate).toLocaleDateString() : 'Not set';
+      document.getElementById('modalEnd').textContent = task.endDate ? new Date(task.endDate).toLocaleDateString() : 'Not set';
+      document.getElementById('modalStatus').textContent = task.status || 'Unknown';
+      document.getElementById('taskModal').style.display = 'flex';
+    }
 
-                modal.style.display = 'none'; // Close modal after action
-            }
-        }
+    function closeModal() {
+      document.getElementById('taskModal').style.display = 'none';
+    }
 
-        // Function to render deleted tasks
-        function renderDeletedTasks() {
-            const deletedTaskList = document.getElementById('deletedTaskList');
-            deletedTaskList.innerHTML = ''; // Clear existing deleted tasks
+    window.onclick = e => {
+      if (e.target === document.getElementById('taskModal')) closeModal();
+    }
 
-            if (deletedTasks.length === 0) {
-                deletedTaskList.innerHTML = "<li class='no-tasks-message'>There are no recent deleted tasks here.</li>";
-            } else {
-                deletedTasks.forEach(task => {
-                    const taskItem = document.createElement('li');
-                    taskItem.id = 'task-' + task.id; // Add unique ID for the task
-                    taskItem.innerHTML = `  
-                        <p><strong>Task:</strong> ${task.text}</p>
-                    `;
-                    // Add click event to open modal with task details
-                    taskItem.onclick = function () {
-                        openModal(task);
-                    };
-                    deletedTaskList.appendChild(taskItem);
-                });
-            }
-        }
+    function permanentlyDelete() {
+      if (!current) return;
+      const i = tasks.findIndex(t => t.id === current.id);
+      if (i > -1) {
+        tasks.splice(i, 1);
+        localStorage.setItem('deletedTasks', JSON.stringify(tasks));
+        showTasks();
+      }
+      closeModal();
+    }
 
-        // Modal logic
-        const modal = document.getElementById('taskModal');
-        const closeBtn = document.getElementsByClassName('close-btn')[0];
-
-        function openModal(task) {
-            currentTask = task; // Set the current task when modal is opened
-            document.getElementById('modalTaskText').innerText = task.text;
-            document.getElementById('modalDeletedDate').innerText = task.deletedAt ? new Date(task.deletedAt).toLocaleString() : 'Not Available';
-            document.getElementById('modalStartDate').innerText = task.startDate ? new Date(task.startDate).toLocaleDateString() : 'Not Set';
-            document.getElementById('modalEndDate').innerText = task.endDate ? new Date(task.endDate).toLocaleDateString() : 'Not Set';
-            document.getElementById('modalTaskStatus').innerText = task.status || 'No status';
-
-            // Display the modal
-            modal.style.display = 'flex';
-        }
-
-        closeBtn.onclick = function () {
-            modal.style.display = 'none';
-        }
-
-        // Close modal when clicking outside of it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        // Initial rendering of deleted tasks
-        renderDeletedTasks();
-    </script>
-
+    showTasks();
+  </script>
 </body>
-
 </html>
