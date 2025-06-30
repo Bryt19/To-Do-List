@@ -1,162 +1,788 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms and Conditions - Elite To-Do List</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap');
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: #e0f7fa;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 0 20px;
-    }
-
-    header, footer {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      text-align: center;
-      padding: 20px 0;
-      font-weight: 600;
-      font-size: 1.3rem;
-      letter-spacing: 1.3px;
-      color: #00feca;
-      text-shadow: 0 0 6px #00feca77;
-    }
-
-    main {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 40px 0;
-    }
-
-    .content {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(16px);
-      border-radius: 18px;
-      padding: 40px;
-      width: 100%;
-      max-width: 900px;
-      box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
-      color: #cde9f3;
-    }
-
-    h1, h2 {
-      text-align: center;
-      font-weight: 700;
-      margin-bottom: 25px;
-      text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-      color: #e0f7fa;
-    }
-
-    h2 {
-      font-size: 1.6rem;
-      text-align: left;
-      border-bottom: 2px solid #00feca;
-      padding-bottom: 8px;
-      margin-top: 40px;
-    }
-
-    p, li {
-      font-size: 1rem;
-      margin-bottom: 18px;
-      line-height: 1.7;
-      color: #c1e9f9;
-    }
-
-    ul {
-      padding-left: 20px;
-      margin-bottom: 20px;
-    }
-
-    strong {
-      color: #00feca;
-      font-weight: 600;
-    }
-
-    a {
-      color: #00feca;
-      text-decoration: none;
-      border-bottom: 1px dashed transparent;
-      transition: border-bottom 0.2s ease;
-    }
-
-    a:hover {
-      border-bottom: 1px dashed #00feca;
-    }
-
-    @media (max-width: 768px) {
-      .content {
-        padding: 30px 20px;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms and Conditions - Elite To-Do List</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary: #f59e0b;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+        --dark: #0f172a;
+        --darker: #020617;
+        --light: #f8fafc;
+        --white: #ffffff;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        --border-radius: 12px;
+        --border-radius-lg: 16px;
+        --border-radius-xl: 20px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
       }
-      h2 {
-        font-size: 1.4rem;
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-    }
-  </style>
-</head>
-<body>
 
-<header>Elite To-Do List – Terms and Conditions</header>
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        min-height: 100vh;
+        color: var(--gray-800);
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
 
-<main>
-  <div class="content">
-    <h1>Terms and Conditions</h1>
+      /* Animated Background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(120, 219, 255, 0.2) 0%,
+            transparent 50%
+          );
+        animation: backgroundShift 20s ease-in-out infinite;
+        z-index: -1;
+      }
 
-    <h2>Welcome to the Elite To-Do List App!</h2>
-    <p>By using this app, you agree to these terms. If you do not agree, please discontinue use of the app immediately.</p>
+      @keyframes backgroundShift {
+        0%,
+        100% {
+          transform: scale(1) rotate(0deg);
+        }
+        50% {
+          transform: scale(1.1) rotate(1deg);
+        }
+      }
 
-    <h2>Important Information</h2>
-    <ul>
-      <li><strong>User Account:</strong> You must create an account to access core features like creating or managing tasks.</li>
-      <li><strong>Privacy:</strong> We do not share your data unless legally required or necessary for functionality.</li>
-      <li><strong>Content Ownership:</strong> Your data remains yours. We only use it to operate the app.</li>
-      <li><strong>Security:</strong> You’re responsible for keeping your credentials secure.</li>
-      <li><strong>Usage Restrictions:</strong> Do not misuse the app for spam, fraud, or illegal activity.</li>
-      <li><strong>Updates:</strong> Terms may change. Continued use implies agreement with updates.</li>
-      <li><strong>Liability:</strong> We are not responsible for losses or damages from use or data loss.</li>
-      <li><strong>Termination:</strong> We may suspend accounts that violate these terms.</li>
-    </ul>
+      /* Floating Particles */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+      }
 
-    <h2>GDPR Compliance</h2>
-    <ul>
-      <li><strong>Data Collection:</strong> We only collect minimal data (e.g., name, email, tasks).</li>
-      <li><strong>Usage:</strong> Data is used only to run and improve the app.</li>
-      <li><strong>Your Rights:</strong> You can access, update, delete, or export your data.</li>
-      <li><strong>Data Retention:</strong> Data is kept only as long as necessary.</li>
-      <li><strong>Security:</strong> We use appropriate security measures.</li>
-      <li><strong>Contact:</strong> Email <a href="mailto:privacy@todolistapp.com">privacy@todolistapp.com</a> for any concerns.</li>
-    </ul>
+      .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
 
-    <h2>Indemnification</h2>
-    <p>You agree to defend and hold us harmless from any claims resulting from your use or violation of these terms.</p>
+      .particle:nth-child(1) {
+        width: 4px;
+        height: 4px;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .particle:nth-child(2) {
+        width: 6px;
+        height: 6px;
+        left: 20%;
+        animation-delay: 1s;
+      }
+      .particle:nth-child(3) {
+        width: 3px;
+        height: 3px;
+        left: 30%;
+        animation-delay: 2s;
+      }
+      .particle:nth-child(4) {
+        width: 5px;
+        height: 5px;
+        left: 40%;
+        animation-delay: 3s;
+      }
+      .particle:nth-child(5) {
+        width: 4px;
+        height: 4px;
+        left: 50%;
+        animation-delay: 4s;
+      }
+      .particle:nth-child(6) {
+        width: 6px;
+        height: 6px;
+        left: 60%;
+        animation-delay: 5s;
+      }
+      .particle:nth-child(7) {
+        width: 3px;
+        height: 3px;
+        left: 70%;
+        animation-delay: 6s;
+      }
+      .particle:nth-child(8) {
+        width: 5px;
+        height: 5px;
+        left: 80%;
+        animation-delay: 7s;
+      }
+      .particle:nth-child(9) {
+        width: 4px;
+        height: 4px;
+        left: 90%;
+        animation-delay: 8s;
+      }
 
-    <h2>Governing Law</h2>
-    <p>These terms are governed by the laws of Ghana. Disputes will be handled in your local jurisdiction.</p>
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
 
-    <h2>Service Changes</h2>
-    <p>We reserve the right to change or discontinue the app or these terms at any time without notice.</p>
+      header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        padding: 1.5rem 0;
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: 0.05em;
+        color: var(--white);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
 
-    <h2>Contact Us</h2>
-    <p>Questions? Contact us at <a href="mailto:support@todolistapp.com">support@todolistapp.com</a>.</p>
-  </div>
-</main>
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
 
-<footer>
-  &copy; 2025 Elite To-Do List. All rights reserved.
-</footer>
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
 
-</body>
+      main {
+        flex: 1;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: calc(100vh - 140px);
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(30px);
+        border-radius: var(--border-radius-xl);
+        padding: 3rem;
+        width: 100%;
+        max-width: 900px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+          0 0 0 1px rgba(255, 255, 255, 0.1);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--info),
+          var(--secondary),
+          var(--primary)
+        );
+        background-size: 200% 100%;
+        animation: gradientShift 3s ease infinite;
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .container:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      .title-section {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--gray-100);
+      }
+
+      .title-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--info), var(--primary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        box-shadow: var(--shadow-lg);
+        animation: iconFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes iconFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .title-icon i {
+        font-size: 2rem;
+        color: var(--white);
+      }
+
+      .title-section h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--info), var(--primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.025em;
+      }
+
+      .title-section p {
+        color: var(--gray-600);
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+
+      .content-section {
+        margin-bottom: 2.5rem;
+      }
+
+      .content-section h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--gray-200);
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .content-section h2::before {
+        content: "";
+        width: 4px;
+        height: 24px;
+        background: linear-gradient(135deg, var(--info), var(--primary));
+        border-radius: 2px;
+      }
+
+      .content-section p {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--gray-700);
+        margin-bottom: 1.25rem;
+      }
+
+      .content-section ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 1.5rem;
+      }
+
+      .content-section li {
+        position: relative;
+        padding-left: 2rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--gray-700);
+      }
+
+      .content-section li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(135deg, var(--success), var(--info));
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .content-section strong {
+        color: var(--gray-900);
+        font-weight: 600;
+      }
+
+      .content-section a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+        border-bottom: 1px solid transparent;
+      }
+
+      .content-section a:hover {
+        color: var(--primary-dark);
+        border-bottom-color: var(--primary);
+      }
+
+      .back-btn {
+        position: fixed;
+        top: 2rem;
+        left: 2rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: var(--white);
+        padding: 0.875rem 1.5rem;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: var(--shadow-md);
+        z-index: 100;
+      }
+
+      .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .back-btn i {
+        font-size: 0.9rem;
+      }
+
+      footer {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        padding: 1rem 0;
+        font-size: 0.875rem;
+        color: var(--white);
+        font-weight: 500;
+      }
+
+      /* Scroll to top button */
+      .scroll-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: var(--white);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: var(--shadow-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 100;
+      }
+
+      .scroll-top.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .scroll-top:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .scroll-top i {
+        font-size: 1.2rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        main {
+          padding: 1rem;
+        }
+
+        .container {
+          padding: 2rem 1.5rem;
+          margin: 1rem;
+        }
+
+        .title-section h1 {
+          font-size: 2rem;
+        }
+
+        .content-section h2 {
+          font-size: 1.5rem;
+        }
+
+        .back-btn {
+          top: 1rem;
+          left: 1rem;
+          padding: 0.75rem 1.25rem;
+          font-size: 0.9rem;
+        }
+
+        .scroll-top {
+          bottom: 1rem;
+          right: 1rem;
+          width: 45px;
+          height: 45px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 1.5rem 1rem;
+        }
+
+        .title-section h1 {
+          font-size: 1.75rem;
+        }
+
+        .title-icon {
+          width: 60px;
+          height: 60px;
+        }
+
+        .title-icon i {
+          font-size: 1.5rem;
+        }
+
+        .content-section h2 {
+          font-size: 1.25rem;
+        }
+
+        .content-section li {
+          padding-left: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated Background Particles -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <header>Elite To-Do List</header>
+
+    <!-- Back Button -->
+    <a href="registration.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      Back
+    </a>
+
+    <main>
+      <div class="container">
+        <div class="title-section">
+          <div class="title-icon">
+            <i class="fas fa-file-contract"></i>
+          </div>
+          <h1>Terms and Conditions</h1>
+          <p>Please read these terms carefully before using our service</p>
+        </div>
+
+        <div class="content-section">
+          <h2>Welcome to the Elite To-Do List App!</h2>
+          <p>
+            By using this app, you agree to these terms. If you do not agree,
+            please discontinue use of the app immediately.
+          </p>
+        </div>
+
+        <div class="content-section">
+          <h2>Important Information</h2>
+          <ul>
+            <li>
+              <strong>User Account:</strong> You must create an account to
+              access core features like creating or managing tasks.
+            </li>
+            <li>
+              <strong>Privacy:</strong> We do not share your data unless legally
+              required or necessary for functionality.
+            </li>
+            <li>
+              <strong>Content Ownership:</strong> Your data remains yours. We
+              only use it to operate the app.
+            </li>
+            <li>
+              <strong>Security:</strong> You're responsible for keeping your
+              credentials secure.
+            </li>
+            <li>
+              <strong>Usage Restrictions:</strong> Do not misuse the app for
+              spam, fraud, or illegal activity.
+            </li>
+            <li>
+              <strong>Updates:</strong> Terms may change. Continued use implies
+              agreement with updates.
+            </li>
+            <li>
+              <strong>Liability:</strong> We are not responsible for losses or
+              damages from use or data loss.
+            </li>
+            <li>
+              <strong>Termination:</strong> We may suspend accounts that violate
+              these terms.
+            </li>
+          </ul>
+        </div>
+
+        <div class="content-section">
+          <h2>GDPR Compliance</h2>
+          <ul>
+            <li>
+              <strong>Data Collection:</strong> We only collect minimal data
+              (e.g., name, email, tasks).
+            </li>
+            <li>
+              <strong>Usage:</strong> Data is used only to run and improve the
+              app.
+            </li>
+            <li>
+              <strong>Your Rights:</strong> You can access, update, delete, or
+              export your data.
+            </li>
+            <li>
+              <strong>Data Retention:</strong> Data is kept only as long as
+              necessary.
+            </li>
+            <li>
+              <strong>Security:</strong> We use appropriate security measures.
+            </li>
+            <li>
+              <strong>Contact:</strong> Email
+              <a href="mailto:privacy@todolistapp.com"
+                >privacy@todolistapp.com</a
+              >
+              for any concerns.
+            </li>
+          </ul>
+        </div>
+
+        <div class="content-section">
+          <h2>Indemnification</h2>
+          <p>
+            You agree to defend and hold us harmless from any claims resulting
+            from your use or violation of these terms.
+          </p>
+        </div>
+
+        <div class="content-section">
+          <h2>Governing Law</h2>
+          <p>
+            These terms are governed by the laws of Ghana. Disputes will be
+            handled in your local jurisdiction.
+          </p>
+        </div>
+
+        <div class="content-section">
+          <h2>Service Changes</h2>
+          <p>
+            We reserve the right to change or discontinue the app or these terms
+            at any time without notice.
+          </p>
+        </div>
+
+        <div class="content-section">
+          <h2>Contact Us</h2>
+          <p>
+            Questions? Contact us at
+            <a href="mailto:support@todolistapp.com">support@todolistapp.com</a
+            >.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer>© 2025 Elite To-Do List. All rights reserved.</footer>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-top" id="scrollTop" title="Scroll to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+      // Scroll to top functionality
+      const scrollTopBtn = document.getElementById("scrollTop");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          scrollTopBtn.classList.add("show");
+        } else {
+          scrollTopBtn.classList.remove("show");
+        }
+      });
+
+      scrollTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+
+      // Add smooth animations on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".container");
+        container.style.opacity = "0";
+        container.style.transform = "translateY(30px)";
+
+        setTimeout(() => {
+          container.style.transition = "all 0.6s ease-out";
+          container.style.opacity = "1";
+          container.style.transform = "translateY(0)";
+        }, 100);
+
+        // Animate content sections on scroll
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        }, observerOptions);
+
+        const sections = document.querySelectorAll(".content-section");
+        sections.forEach((section, index) => {
+          section.style.opacity = "0";
+          section.style.transform = "translateY(20px)";
+          section.style.transition = `all 0.6s ease-out ${index * 0.1}s`;
+          observer.observe(section);
+        });
+      });
+    </script>
+  </body>
 </html>

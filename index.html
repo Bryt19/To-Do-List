@@ -1,239 +1,775 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Elite Login - To-Do List</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elite Login - To-Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary: #f59e0b;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+        --dark: #0f172a;
+        --darker: #020617;
+        --light: #f8fafc;
+        --white: #ffffff;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        --border-radius: 12px;
+        --border-radius-lg: 16px;
+        --border-radius-xl: 20px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-    body {
-      font-family: 'Outfit', sans-serif;
-      height: 100vh;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      background-size: cover;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        min-height: 100vh;
+        color: var(--gray-800);
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
 
-    .container {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 40px;
-      width: 100%;
-      max-width: 420px;
-      transition: all 0.3s ease-in-out;
-    }
+      /* Animated Background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(120, 219, 255, 0.2) 0%,
+            transparent 50%
+          );
+        animation: backgroundShift 20s ease-in-out infinite;
+        z-index: -1;
+      }
 
-    .container:hover {
-      box-shadow: 0 0 60px rgba(0, 255, 255, 0.4);
-      transform: translateY(-5px);
-    }
+      @keyframes backgroundShift {
+        0%,
+        100% {
+          transform: scale(1) rotate(0deg);
+        }
+        50% {
+          transform: scale(1.1) rotate(1deg);
+        }
+      }
 
-    .navbar {
-      position: absolute;
-      top: 30px;
-      text-align: center;
-      width: 100%;
-    }
+      /* Floating Particles */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+      }
 
-    .navbar h1 {
-      color: #0ff;
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-    }
+      .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #ffffffcc;
-    }
+      .particle:nth-child(1) {
+        width: 4px;
+        height: 4px;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .particle:nth-child(2) {
+        width: 6px;
+        height: 6px;
+        left: 20%;
+        animation-delay: 1s;
+      }
+      .particle:nth-child(3) {
+        width: 3px;
+        height: 3px;
+        left: 30%;
+        animation-delay: 2s;
+      }
+      .particle:nth-child(4) {
+        width: 5px;
+        height: 5px;
+        left: 40%;
+        animation-delay: 3s;
+      }
+      .particle:nth-child(5) {
+        width: 4px;
+        height: 4px;
+        left: 50%;
+        animation-delay: 4s;
+      }
+      .particle:nth-child(6) {
+        width: 6px;
+        height: 6px;
+        left: 60%;
+        animation-delay: 5s;
+      }
+      .particle:nth-child(7) {
+        width: 3px;
+        height: 3px;
+        left: 70%;
+        animation-delay: 6s;
+      }
+      .particle:nth-child(8) {
+        width: 5px;
+        height: 5px;
+        left: 80%;
+        animation-delay: 7s;
+      }
+      .particle:nth-child(9) {
+        width: 4px;
+        height: 4px;
+        left: 90%;
+        animation-delay: 8s;
+      }
 
-    label {
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: #ffffffcc;
-      margin-bottom: 5px;
-      display: block;
-    }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
 
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0 20px;
-      border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.07);
-      color: #fff;
-      box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.1);
-      outline: none;
-      transition: all 0.3s ease;
-    }
+      header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        padding: 1.5rem 0;
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: 0.05em;
+        color: var(--white);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
-    }
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
 
-    input[type="submit"] {
-      background: linear-gradient(90deg, #00feca, #00c2ff);
-      border: none;
-      padding: 14px;
-      width: 100%;
-      font-size: 1.1rem;
-      font-weight: bold;
-      border-radius: 12px;
-      color: #000;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
 
-    input[type="submit"]:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
-    }
+      main {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        min-height: calc(100vh - 140px);
+      }
 
-    .message,
-    .valid {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 1rem;
-    }
-
-    .message {
-      color: #ff4d4d;
-    }
-
-    .valid {
-      color: #00ff99;
-    }
-
-    .sign-in-link {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .sign-in-link a {
-      color: #00f0ff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .sign-in-link a:hover {
-      text-decoration: underline;
-    }
-
-    .password-container {
-      position: relative;
-    }
-
-    .eye-icon {
-      position: absolute;
-      top: 46%;
-      right: 14px;
-      transform: translateY(-50%);
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: #0ff;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      color: #999;
-      font-size: 0.9rem;
-    }
-
-    @media screen and (max-width: 480px) {
       .container {
-        padding: 30px;
-        margin: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(30px);
+        border-radius: var(--border-radius-xl);
+        padding: 3rem 2.5rem;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+          0 0 0 1px rgba(255, 255, 255, 0.1);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
       }
-    }
-  </style>
-</head>
-<body>
 
-  <div class="navbar">
-    <h1>To-Do Elite</h1>
-  </div>
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--primary),
+          var(--secondary),
+          var(--info)
+        );
+        background-size: 200% 100%;
+        animation: gradientShift 3s ease infinite;
+      }
 
-  <div class="container">
-    <h2>Welcome Back</h2>
-    <form id="loginForm" onsubmit="return handleLogin(event)">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="e.g. johndoe123" required>
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
 
-      <label for="password">Password</label>
-      <div class="password-container">
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
-        <span id="togglePassword" class="eye-icon">&#128065;</span>
+      .container:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      .logo-section {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        box-shadow: var(--shadow-lg);
+        animation: logoFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes logoFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .logo i {
+        font-size: 2rem;
+        color: var(--white);
+      }
+
+      h2 {
+        text-align: center;
+        font-weight: 800;
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.025em;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: var(--gray-600);
+        font-size: 1rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--gray-700);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: var(--transition-fast);
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .input-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray-400);
+        font-size: 1.1rem;
+        transition: var(--transition-fast);
+        z-index: 2;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 1rem 1rem 1rem 3rem;
+        border: 2px solid var(--gray-200);
+        border-radius: var(--border-radius);
+        background: var(--gray-50);
+        color: var(--gray-800);
+        font-size: 1rem;
+        font-weight: 500;
+        transition: var(--transition);
+        outline: none;
+      }
+
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        border-color: var(--primary);
+        background: var(--white);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+      }
+
+      input[type="text"]:focus + .input-icon,
+      input[type="password"]:focus + .input-icon {
+        color: var(--primary);
+      }
+
+      .password-wrapper {
+        position: relative;
+      }
+
+      .eye-icon {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: var(--gray-400);
+        transition: var(--transition-fast);
+        z-index: 3;
+        padding: 0.5rem;
+        border-radius: 50%;
+      }
+
+      .eye-icon:hover {
+        color: var(--primary);
+        background: rgba(99, 102, 241, 0.1);
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 1.25rem;
+        border: none;
+        border-radius: var(--border-radius);
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: var(--white);
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .submit-btn:hover::before {
+        left: 100%;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+
+      .message {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .message.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .message.error {
+        background: rgba(239, 68, 68, 0.1);
+        color: var(--danger);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+      }
+
+      .message.success {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+      }
+
+      .sign-in-link {
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 1rem;
+        color: var(--gray-600);
+      }
+
+      .sign-in-link a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition-fast);
+      }
+
+      .sign-in-link a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+
+      footer {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        padding: 1rem 0;
+        font-size: 0.875rem;
+        color: var(--white);
+        font-weight: 500;
+      }
+
+      /* Loading Animation */
+      .loading {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top: 2px solid var(--white);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        main {
+          padding: 1rem;
+        }
+
+        .container {
+          padding: 2rem 1.5rem;
+          margin: 1rem;
+        }
+
+        h2 {
+          font-size: 1.875rem;
+        }
+
+        .logo {
+          width: 60px;
+          height: 60px;
+        }
+
+        .logo i {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 1.5rem 1rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+          padding: 0.875rem 0.875rem 0.875rem 2.5rem;
+          font-size: 0.95rem;
+        }
+
+        .input-icon {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated Background Particles -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <header>Elite To-Do List</header>
+
+    <main>
+      <div class="container">
+        <div class="logo-section">
+          <div class="logo">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <h2>Welcome Back</h2>
+          <p class="subtitle">Sign in to continue your productivity journey</p>
+        </div>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)" novalidate>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <div class="input-wrapper">
+              <i class="fas fa-user input-icon"></i>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter your username"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock input-icon"></i>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+              />
+              <span
+                id="togglePassword"
+                class="eye-icon"
+                title="Show/Hide Password"
+              >
+                <i class="fas fa-eye"></i>
+              </span>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="btn-text">
+              <i class="fas fa-sign-in-alt"></i>
+              Sign In
+            </span>
+            <span class="loading">
+              <div class="spinner"></div>
+              Signing In...
+            </span>
+          </button>
+
+          <div id="message" class="message"></div>
+
+          <div class="sign-in-link">
+            Don't have an account? <a href="registration.html">Sign up</a>
+          </div>
+        </form>
       </div>
+    </main>
 
-      <input type="submit" value="Log In">
-      <div id="validationMessage" class="message"></div>
+    <footer>© 2025 Elite To-Do List. All rights reserved.</footer>
 
-      <div class="sign-in-link">
-        <p>Don't have an account? <a href="registration.html">Sign up</a></p>
-      </div>
-    </form>
-  </div>
+    <script>
+      // Enhanced login functionality with better UX
+      const form = document.getElementById("loginForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const btnText = submitBtn.querySelector(".btn-text");
+      const loading = submitBtn.querySelector(".loading");
 
-  <footer>
-    <p>&copy; 2025 To-Do Elite. Crafted with precision.</p>
-  </footer>
+      function handleLogin(event) {
+        event.preventDefault();
 
-  <script>
-    function handleLogin(event) {
-      event.preventDefault();
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const messageDiv = document.getElementById("message");
 
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const message = document.getElementById('validationMessage');
+        // Show loading state
+        btnText.style.display = "none";
+        loading.style.display = "flex";
+        submitBtn.disabled = true;
 
-      const storedUsername = localStorage.getItem('username');
-      const storedPassword = localStorage.getItem('password');
-
-      if (username === storedUsername && password === storedPassword) {
-        message.textContent = "Access granted. Redirecting...";
-        message.className = "valid";
+        // Simulate API call delay for better UX
         setTimeout(() => {
-          window.location.href = "homepage.html";
-        }, 2000);
-      } else {
-        message.textContent = "Incorrect credentials. Please try again.";
-        message.className = "message";
+          const storedUsername = localStorage.getItem("username");
+          const storedPassword = localStorage.getItem("password");
+
+          if (username === storedUsername && password === storedPassword) {
+            showMessage("Access granted! Redirecting...", "success");
+
+            setTimeout(() => {
+              window.location.href = "homepage.html";
+            }, 2000);
+          } else {
+            showMessage("Incorrect credentials. Please try again.", "error");
+            resetSubmitButton();
+          }
+        }, 1500);
+
+        return false;
       }
-    }
 
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordField = document.getElementById("password");
+      function showMessage(text, type) {
+        const messageDiv = document.getElementById("message");
+        messageDiv.textContent = text;
+        messageDiv.className = `message ${type} show`;
+      }
 
-    togglePassword.addEventListener("click", () => {
-      const type = passwordField.type === "password" ? "text" : "password";
-      passwordField.type = type;
-    });
-  </script>
+      function resetSubmitButton() {
+        btnText.style.display = "flex";
+        loading.style.display = "none";
+        submitBtn.disabled = false;
+      }
 
-</body>
+      // Password toggle functionality
+      const togglePassword = document.getElementById("togglePassword");
+      const passwordField = document.getElementById("password");
+
+      togglePassword.addEventListener("click", () => {
+        const icon = togglePassword.querySelector("i");
+
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          icon.className = "fas fa-eye-slash";
+        } else {
+          passwordField.type = "password";
+          icon.className = "fas fa-eye";
+        }
+      });
+
+      // Add smooth animations on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".container");
+        container.style.opacity = "0";
+        container.style.transform = "translateY(30px)";
+
+        setTimeout(() => {
+          container.style.transition = "all 0.6s ease-out";
+          container.style.opacity = "1";
+          container.style.transform = "translateY(0)";
+        }, 100);
+      });
+    </script>
+  </body>
 </html>

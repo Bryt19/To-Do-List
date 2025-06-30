@@ -1,293 +1,891 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>User Profile</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      background-attachment: fixed;
-      color: #e0f7fa;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .navbar {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 15px 0;
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #00feca;
-      letter-spacing: 1.2px;
-      text-shadow: 0 0 6px #00feca88;
-      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
-    }
-
-    .container {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(16px);
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 700px;
-      width: 100%;
-      box-shadow: 0 0 40px rgba(0, 255, 255, 0.15);
-      margin-top: 40px;
-      color: #cde9f3;
-      text-align: center;
-    }
-
-    h2 {
-      font-size: 2.2rem;
-      color: #00feca;
-      margin-bottom: 20px;
-      text-shadow: 0 0 6px #00feca33;
-    }
-
-    .profile-pic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 4px solid #00feca;
-      object-fit: cover;
-      margin-bottom: 15px;
-      transition: transform 0.3s;
-    }
-
-    .profile-pic:hover {
-      transform: scale(1.08);
-    }
-
-    .button-container {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 25px;
-      flex-wrap: wrap;
-    }
-
-    .upload-btn, .delete-btn, .edit-bio-btn, .profile-btn, .logout-btn {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.3s, background-color 0.3s;
-    }
-
-    .upload-btn {
-      background-color: #00feca;
-      color: #000;
-    }
-
-    .upload-btn:hover {
-      background-color: #00dbbb;
-      transform: scale(1.05);
-    }
-
-    .delete-btn, .logout-btn {
-      background-color: red;
-      color: white;
-    }
-
-    .delete-btn:hover, .logout-btn:hover {
-      background-color: #cc0000;
-      transform: scale(1.05);
-    }
-
-    .edit-bio-btn {
-      background-color: #007bff;
-      color: white;
-    }
-
-    .edit-bio-btn:hover {
-      background-color: #0056b3;
-      transform: scale(1.05);
-    }
-
-    .profile-btn {
-      background-color: #4CAF50;
-      color: white;
-      margin-top: 15px;
-    }
-
-    .profile-btn:hover {
-      background-color: #3c9e42;
-      transform: scale(1.05);
-    }
-
-    .profile-info p {
-      margin-bottom: 10px;
-      font-size: 1.05rem;
-      color: #bcecf3;
-    }
-
-    .profile-info strong {
-      color: #00feca;
-    }
-
-    .bio-text {
-      width: 95%;
-      height: 130px;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      background-color: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      margin-top: 10px;
-      resize: none;
-      font-family: inherit;
-    }
-
-    .divider {
-      height: 1px;
-      background-color: #00feca55;
-      margin: 25px 0;
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      color: #aaa;
-      font-size: 1rem;
-      width: 100%;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 25px;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile - Elite To-Do List</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      .button-container {
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary: #f59e0b;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+        --dark: #0f172a;
+        --darker: #020617;
+        --light: #f8fafc;
+        --white: #ffffff;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        --border-radius: 12px;
+        --border-radius-lg: 16px;
+        --border-radius-xl: 20px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        min-height: 100vh;
+        color: var(--gray-800);
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+        display: flex;
         flex-direction: column;
       }
 
-      .upload-btn, .delete-btn, .edit-bio-btn, .profile-btn, .logout-btn {
+      /* Animated Background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(120, 219, 255, 0.2) 0%,
+            transparent 50%
+          );
+        animation: backgroundShift 20s ease-in-out infinite;
+        z-index: -1;
       }
-    }
-  </style>
-</head>
-<body>
 
-  <div class="navbar">Elite To-Do List</div>
+      @keyframes backgroundShift {
+        0%,
+        100% {
+          transform: scale(1) rotate(0deg);
+        }
+        50% {
+          transform: scale(1.1) rotate(1deg);
+        }
+      }
 
-  <div class="container">
-    <h2>User Profile</h2>
+      /* Floating Particles */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+      }
 
-    <img id="profilePic" class="profile-pic" src="default-profile-pic.jpg" alt="Profile Picture">
-    <input type="file" id="profilePicInput" style="display:none;">
+      .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
 
-    <div class="button-container">
-      <button class="upload-btn" id="changePicBtn">Change Picture</button>
-      <button class="delete-btn" id="deletePicBtn">Delete Picture</button>
+      .particle:nth-child(1) {
+        width: 4px;
+        height: 4px;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .particle:nth-child(2) {
+        width: 6px;
+        height: 6px;
+        left: 20%;
+        animation-delay: 1s;
+      }
+      .particle:nth-child(3) {
+        width: 3px;
+        height: 3px;
+        left: 30%;
+        animation-delay: 2s;
+      }
+      .particle:nth-child(4) {
+        width: 5px;
+        height: 5px;
+        left: 40%;
+        animation-delay: 3s;
+      }
+      .particle:nth-child(5) {
+        width: 4px;
+        height: 4px;
+        left: 50%;
+        animation-delay: 4s;
+      }
+      .particle:nth-child(6) {
+        width: 6px;
+        height: 6px;
+        left: 60%;
+        animation-delay: 5s;
+      }
+      .particle:nth-child(7) {
+        width: 3px;
+        height: 3px;
+        left: 70%;
+        animation-delay: 6s;
+      }
+      .particle:nth-child(8) {
+        width: 5px;
+        height: 5px;
+        left: 80%;
+        animation-delay: 7s;
+      }
+      .particle:nth-child(9) {
+        width: 4px;
+        height: 4px;
+        left: 90%;
+        animation-delay: 8s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        padding: 1.5rem 0;
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: 0.05em;
+        color: var(--white);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      main {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        min-height: calc(100vh - 140px);
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(30px);
+        border-radius: var(--border-radius-xl);
+        padding: 3rem 2.5rem;
+        width: 100%;
+        max-width: 700px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+          0 0 0 1px rgba(255, 255, 255, 0.1);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--primary),
+          var(--secondary),
+          var(--info)
+        );
+        background-size: 200% 100%;
+        animation: gradientShift 3s ease infinite;
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .container:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      .profile-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .profile-pic-container {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+      }
+
+      .profile-pic {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: 4px solid var(--primary);
+        object-fit: cover;
+        box-shadow: var(--shadow-lg);
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .profile-pic:hover {
+        transform: scale(1.05);
+        border-color: var(--secondary);
+        box-shadow: var(--shadow-xl);
+      }
+
+      .profile-pic-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .profile-pic-container:hover .profile-pic-overlay {
+        opacity: 1;
+      }
+
+      .profile-pic-overlay i {
+        color: var(--white);
+        font-size: 2rem;
+      }
+
+      h2 {
+        text-align: center;
+        font-weight: 800;
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.025em;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: var(--gray-600);
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: var(--white);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .btn-success {
+        background: linear-gradient(135deg, var(--success), #059669);
+        color: var(--white);
+      }
+
+      .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .btn-danger {
+        background: linear-gradient(135deg, var(--danger), #dc2626);
+        color: var(--white);
+      }
+
+      .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .btn-info {
+        background: linear-gradient(135deg, var(--info), #2563eb);
+        color: var(--white);
+      }
+
+      .btn-info:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .divider {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gray-300),
+          transparent
+        );
+        margin: 2rem 0;
+      }
+
+      .profile-info {
+        margin-bottom: 2rem;
+      }
+
+      .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: var(--gray-50);
+        border-radius: var(--border-radius);
+        margin-bottom: 0.75rem;
+        border: 1px solid var(--gray-200);
+        transition: var(--transition);
+      }
+
+      .info-item:hover {
+        background: var(--white);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .info-label {
+        font-weight: 600;
+        color: var(--gray-700);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .info-value {
+        color: var(--gray-800);
+        font-weight: 500;
+      }
+
+      .bio-section {
+        margin-bottom: 2rem;
+      }
+
+      .bio-section h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--gray-800);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .bio-text {
+        width: 100%;
+        height: 120px;
+        padding: 1rem;
+        border: 2px solid var(--gray-200);
+        border-radius: var(--border-radius);
+        background: var(--gray-50);
+        color: var(--gray-800);
+        font-family: inherit;
+        font-size: 0.875rem;
+        resize: vertical;
+        transition: var(--transition);
+        outline: none;
+      }
+
+      .bio-text:focus {
+        border-color: var(--primary);
+        background: var(--white);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+      }
+
+      .bio-text::placeholder {
+        color: var(--gray-400);
+      }
+
+      .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-large {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+
+      footer {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        padding: 1rem 0;
+        font-size: 0.875rem;
+        color: var(--white);
+        font-weight: 500;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        main {
+          padding: 1rem;
+        }
+
+        .container {
+          padding: 2rem 1.5rem;
+          margin: 1rem;
+        }
+
+        h2 {
+          font-size: 1.875rem;
+        }
+
+        .profile-pic {
+          width: 120px;
+          height: 120px;
+        }
+
+        .button-container {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .btn-large {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 1.5rem 1rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        .profile-pic {
+          width: 100px;
+          height: 100px;
+        }
+
+        .info-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+      }
+
+      /* Animation Classes */
+      .fade-in {
+        animation: fadeIn 0.6s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Success Message */
+      .success-message {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: 500;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: var(--transition);
+      }
+
+      .success-message.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated Background Particles -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
     </div>
 
-    <div class="divider"></div>
+    <header>Elite To-Do List</header>
 
-    <div class="profile-info">
-      <p><strong>Full Name:</strong> <span id="fullName"></span></p>
-      <p><strong>Username:</strong> <span id="username"></span></p>
-      <p><strong>Email:</strong> <span id="email"></span></p>
-      <p><strong>Gender:</strong> <span id="gender"></span></p>
-    </div>
+    <main>
+      <div class="container fade-in">
+        <div class="profile-header">
+          <h2>User Profile</h2>
+          <p class="subtitle">Manage your account settings and preferences</p>
 
-    <div class="divider"></div>
+          <div class="profile-pic-container">
+            <img
+              id="profilePic"
+              class="profile-pic"
+              src="./img/default.png"
+              alt="Profile Picture"
+            />
+            <div class="profile-pic-overlay" id="changePicBtn">
+              <i class="fas fa-camera"></i>
+            </div>
+          </div>
+          <input
+            type="file"
+            id="profilePicInput"
+            accept="image/*"
+            style="display: none"
+          />
 
-    <div class="bio-section">
-      <p><strong>Bio:</strong></p>
-      <textarea class="bio-text" id="bio" placeholder="Write your bio..."></textarea>
-      <button class="edit-bio-btn" id="saveBioBtn">Save Bio</button>
-    </div>
+          <div class="button-container">
+            <button class="btn btn-primary" id="uploadBtn">
+              <i class="fas fa-upload"></i>
+              Change Picture
+            </button>
+            <button class="btn btn-danger" id="deletePicBtn">
+              <i class="fas fa-trash"></i>
+              Delete Picture
+            </button>
+          </div>
+        </div>
 
-    <button class="profile-btn" id="backBtn">Back to Tasks</button>
-    <button class="logout-btn" id="logoutBtn">Logout</button>
-  </div>
+        <div class="divider"></div>
 
-  <footer>&copy; 2025 Elite To-Do List. All rights reserved.</footer>
+        <div class="profile-info">
+          <div class="info-item">
+            <span class="info-label">Full Name</span>
+            <span class="info-value" id="fullName">Loading...</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Username</span>
+            <span class="info-value" id="username">Loading...</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Email</span>
+            <span class="info-value" id="email">Loading...</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Gender</span>
+            <span class="info-value" id="gender">Loading...</span>
+          </div>
+        </div>
 
-  <script>
-    const defaultProfilePic = './img/default.png';
+        <div class="divider"></div>
 
-    const fullName = localStorage.getItem('fullName');
-    const username = localStorage.getItem('username');
-    const email = localStorage.getItem('email');
-    const gender = localStorage.getItem('gender');
-    const bio = localStorage.getItem('bio');
-    const profilePic = localStorage.getItem('profilePic');
+        <div class="bio-section">
+          <h3>About Me</h3>
+          <textarea
+            class="bio-text"
+            id="bio"
+            placeholder="Tell us about yourself..."
+          ></textarea>
+          <div class="button-container">
+            <button class="btn btn-success" id="saveBioBtn">
+              <i class="fas fa-save"></i>
+              Save Bio
+            </button>
+          </div>
+        </div>
 
-    document.getElementById('fullName').textContent = fullName || 'Not available';
-    document.getElementById('username').textContent = username || 'Not available';
-    document.getElementById('email').textContent = email || 'Not available';
-    document.getElementById('gender').textContent = gender || 'Not available';
-    document.getElementById('bio').value = bio || 'Not available';
+        <div class="action-buttons">
+          <button class="btn btn-primary btn-large" id="backBtn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Tasks
+          </button>
+          <button class="btn btn-danger btn-large" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+          </button>
+        </div>
 
-    const profilePicElement = document.getElementById('profilePic');
-    profilePicElement.src = profilePic || defaultProfilePic;
+        <div id="successMessage" class="success-message"></div>
+      </div>
+    </main>
 
-    document.getElementById('saveBioBtn').addEventListener('click', function () {
-      const newBio = document.getElementById('bio').value;
-      localStorage.setItem('bio', newBio);
-    });
+    <footer>© 2025 Elite To-Do List. All rights reserved.</footer>
 
-    document.getElementById('changePicBtn').addEventListener('click', function () {
-      document.getElementById('profilePicInput').click();
-    });
+    <script>
+      const defaultProfilePic = "./img/default.png";
 
-    document.getElementById('profilePicInput').addEventListener('change', function (event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          profilePicElement.src = e.target.result;
-          localStorage.setItem('profilePic', e.target.result);
-        };
-        reader.readAsDataURL(file);
+      // Load user data
+      const fullName = localStorage.getItem("fullName");
+      const username = localStorage.getItem("username");
+      const email = localStorage.getItem("email");
+      const gender = localStorage.getItem("gender");
+      const bio = localStorage.getItem("bio");
+      const profilePic = localStorage.getItem("profilePic");
+
+      // Populate profile information
+      document.getElementById("fullName").textContent =
+        fullName || "Not available";
+      document.getElementById("username").textContent =
+        username || "Not available";
+      document.getElementById("email").textContent = email || "Not available";
+      document.getElementById("gender").textContent = gender || "Not available";
+      document.getElementById("bio").value = bio || "";
+
+      // Set profile picture
+      const profilePicElement = document.getElementById("profilePic");
+      profilePicElement.src = profilePic || defaultProfilePic;
+
+      // Save bio functionality
+      document
+        .getElementById("saveBioBtn")
+        .addEventListener("click", function () {
+          const newBio = document.getElementById("bio").value.trim();
+          localStorage.setItem("bio", newBio);
+          showSuccessMessage("Bio saved successfully!");
+        });
+
+      // Change picture functionality
+      document
+        .getElementById("uploadBtn")
+        .addEventListener("click", function () {
+          document.getElementById("profilePicInput").click();
+        });
+
+      document
+        .getElementById("changePicBtn")
+        .addEventListener("click", function () {
+          document.getElementById("profilePicInput").click();
+        });
+
+      document
+        .getElementById("profilePicInput")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          if (file) {
+            // Validate file type
+            if (!file.type.startsWith("image/")) {
+              showSuccessMessage("Please select an image file.", "error");
+              return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+              showSuccessMessage(
+                "Image size should be less than 5MB.",
+                "error"
+              );
+              return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              profilePicElement.src = e.target.result;
+              localStorage.setItem("profilePic", e.target.result);
+              showSuccessMessage("Profile picture updated successfully!");
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      // Delete picture functionality
+      document
+        .getElementById("deletePicBtn")
+        .addEventListener("click", function () {
+          if (
+            confirm("Are you sure you want to delete your profile picture?")
+          ) {
+            localStorage.removeItem("profilePic");
+            profilePicElement.src = defaultProfilePic;
+            localStorage.setItem("profilePic", defaultProfilePic);
+            showSuccessMessage("Profile picture removed successfully!");
+          }
+        });
+
+      // Navigation functionality
+      document.getElementById("backBtn").addEventListener("click", function () {
+        window.location.href = "homepage.html";
+      });
+
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", function () {
+          if (confirm("Are you sure you want to logout?")) {
+            localStorage.setItem("isLoggedIn", "false");
+            window.location.href = "index.html";
+          }
+        });
+
+      // Success message functionality
+      function showSuccessMessage(message, type = "success") {
+        const messageDiv = document.getElementById("successMessage");
+        messageDiv.textContent = message;
+        messageDiv.className = `success-message ${type} show`;
+
+        setTimeout(() => {
+          messageDiv.classList.remove("show");
+        }, 3000);
       }
-    });
 
-    document.getElementById('deletePicBtn').addEventListener('click', function () {
-      localStorage.removeItem('profilePic');
-      profilePicElement.src = defaultProfilePic;
-      localStorage.setItem('profilePic', defaultProfilePic);
-    });
+      // Bio textarea focus handling
+      const bioTextarea = document.getElementById("bio");
+      bioTextarea.addEventListener("focus", () => {
+        if (bioTextarea.value === "Not available") {
+          bioTextarea.value = "";
+        }
+      });
 
-    document.getElementById('backBtn').addEventListener('click', function () {
-      window.location.href = 'homepage.html';
-    });
+      bioTextarea.addEventListener("blur", () => {
+        if (bioTextarea.value.trim() === "") {
+          bioTextarea.value = "Not available";
+        }
+      });
 
-    document.getElementById('logoutBtn').addEventListener('click', function () {
-      if (confirm("Do you want to logout?")) {
-        localStorage.setItem('isLoggedIn', 'false');
-        window.location.href = "index.html";
-      }
-    });
+      // Add smooth animations on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".container");
+        container.style.opacity = "0";
+        container.style.transform = "translateY(30px)";
 
-    const bioTextarea = document.getElementById('bio');
-    bioTextarea.addEventListener('focus', () => {
-      if (bioTextarea.value === 'Not available') bioTextarea.value = '';
-    });
-    bioTextarea.addEventListener('blur', () => {
-      if (bioTextarea.value === '') bioTextarea.value = 'Not available';
-    });
-  </script>
-
-</body>
+        setTimeout(() => {
+          container.style.transition = "all 0.6s ease-out";
+          container.style.opacity = "1";
+          container.style.transform = "translateY(0)";
+        }, 100);
+      });
+    </script>
+  </body>
 </html>
