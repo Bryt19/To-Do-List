@@ -705,10 +705,6 @@
             <span class="info-label">Email</span>
             <span class="info-value" id="email">Loading...</span>
           </div>
-          <div class="info-item">
-            <span class="info-label">Gender</span>
-            <span class="info-value" id="gender">Loading...</span>
-          </div>
         </div>
 
         <div class="divider"></div>
@@ -752,7 +748,6 @@
       const fullName = localStorage.getItem("fullName");
       const username = localStorage.getItem("username");
       const email = localStorage.getItem("email");
-      const gender = localStorage.getItem("gender");
       const bio = localStorage.getItem("bio");
       const profilePic = localStorage.getItem("profilePic");
 
@@ -762,7 +757,6 @@
       document.getElementById("username").textContent =
         username || "Not available";
       document.getElementById("email").textContent = email || "Not available";
-      document.getElementById("gender").textContent = gender || "Not available";
       document.getElementById("bio").value = bio || "";
 
       // Set profile picture
