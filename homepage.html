@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
 
@@ -37,12 +39,43 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     box-shadow: 4px 0 18px rgba(0, 0, 0, 0.5);
-    transition: width 0.3s ease;
+    transition: transform 0.3s ease, width 0.3s ease;
+    z-index: 1000;
 }
 
-/* Hover effect for Dashboard */
-.dashboard:hover {
-    width: 300px;
+/* Dashboard collapsed state */
+.dashboard.collapsed {
+    transform: translateX(-100%);
+}
+
+/* Dashboard toggle button */
+.dashboard-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.dashboard-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+.dashboard-toggle.collapsed {
+    left: 20px;
 }
 
 /* Profile Section */
@@ -179,23 +212,87 @@ body {
 
 /* Main Container */
 .main-container {
-    margin-left: 280px;
+    margin-left: 0;
     padding: 50px;
-    width: calc(100% - 280px);
+    width: 100%;
     min-height: 100vh;
     text-decoration: underline;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: margin-left 0.3s ease;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+    padding-left: 320px;
+}
+
+/* Main container when dashboard is collapsed */
+.main-container.dashboard-collapsed {
+    padding-left: 50px;
 }
 
 h1 {
-    font-size: 2.7rem;
-    color: #4CAF50;
-    margin-bottom: 40px;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-    font-weight: 700;
+    font-size: 3.8rem;
+    font-weight: 300;
+    text-align: center;
+    letter-spacing: 8px;
+    position: relative;
+    font-family: 'Orbitron', 'Arial', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    background: linear-gradient(135deg, #e0e0e0 0%, #ffffff 25%, #f0f0f0 50%, #ffffff 75%, #e0e0e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 
+        0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 2px rgba(255, 255, 255, 0.1);
+    animation: subtleGlow 4s ease-in-out infinite;
+}
+
+@keyframes subtleGlow {
+    0%, 100% {
+        filter: brightness(1) contrast(1);
+        transform: scale(1);
+    }
+    50% {
+        filter: brightness(1.1) contrast(1.1);
+        transform: scale(1.01);
+    }
+}
+
+/* Futuristic accent lines */
+h1::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+    animation: pulseLine 3s ease-in-out infinite;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+    animation: pulseLine 3s ease-in-out infinite reverse;
+}
+
+@keyframes pulseLine {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translateX(-50%) scaleX(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scaleX(1.2);
+    }
 }
 
 /* Task Form Styles */
@@ -281,13 +378,14 @@ h1 {
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 14px;
     padding: 30px;
-    height: 68.55vh;
+    height: 75.55vh;
     width: 85%;
     max-width: 500px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     color: #333;
     display: none;
     margin: 0 auto;
+    margin-top: 32px;
     position: absolute; 
     top: 50%; 
     left: 50%; 
@@ -297,29 +395,37 @@ h1 {
 
 /* New Hover Effect on Task Details */
 .task-details:hover {
-    transform: translate(-80%, -50%) scale(1.05); 
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); 
-    background-color: rgba(255, 255, 255, 1); 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.98);
 }
 
 
 /* Header styles */
 #taskDetails h1 {
-    font-weight: bold;               
-    text-decoration: underline;      
-    color: black; 
-    font-size: 2.1rem;
-    letter-spacing: 1px;             
-    margin-bottom: 15px;                  
-    font-family: 'Poppins', sans-serif;                
+    font-weight: 700;               
+    color: #000000 !important; 
+    font-size: 2.4rem;
+    letter-spacing: 1.5px;             
+    margin-bottom: 25px;                  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #4CAF50;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .task-details h2 {
-    color: #023e7d;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    font-size: 2rem;
     font-weight: 600;
+    border-left: 4px solid #4CAF50;
+    padding-left: 15px;
+    background: linear-gradient(90deg, rgba(76, 175, 80, 0.1), transparent);
+    padding: 10px 15px;
+    border-radius: 0 8px 8px 0;
 }
 
 /* Task Detail Item */
@@ -561,6 +667,150 @@ h1 {
     font-size: 1rem;
 }
 
+/* Floating Action Button (FAB) */
+.fab {
+    position: fixed;
+    bottom: 70px;
+    right: 40px;
+    width: 64px;
+    height: 64px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2000;
+    transition: background 0.2s, transform 0.2s;
+}
+.fab:hover {
+    background: #45a049;
+    transform: scale(1.08);
+}
+
+/* Modal for New Task */
+#newTaskModal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px);
+}
+#newTaskModal .modal-content {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    color: #2c3e50;
+    margin: auto;
+    padding: 40px 35px 30px 35px;
+    border-radius: 20px;
+    width: 95%;
+    max-width: 650px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
+    position: relative;
+    animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+@keyframes modalSlideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(60px) scale(0.95); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
+}
+#newTaskModal .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#newTaskModal .close-modal:hover {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+    transform: scale(1.1);
+}
+#newTaskModal label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: #495057;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+#newTaskModal input, #newTaskModal select {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #ffffff;
+    color: #495057;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+#newTaskModal input:focus, #newTaskModal select:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    background: #ffffff;
+}
+#newTaskModal .modal-btn {
+    width: 100%;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+#newTaskModal .modal-btn:hover {
+    background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+#newTaskModal .error {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    display: none;
+    background: rgba(220, 53, 69, 0.1);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #dc3545;
+    font-weight: 500;
+}
+
 /* Responsive Design for smaller screens (e.g., iPhone 8) */
 @media screen and (max-width: 375px) {
     /* Center the container */
@@ -680,6 +930,10 @@ h1 {
 </head>
 <body>
 
+<!-- Dashboard Toggle Button -->
+<button class="dashboard-toggle" id="dashboardToggle" title="Toggle Dashboard">
+    <i class="fas fa-bars"></i>
+</button>
 
    <!-- Dashboard Section -->
 <div class="dashboard">
@@ -724,32 +978,6 @@ h1 {
 <!-- Main Container (Content) -->
 <div class="main-container">
     <h1>To-Do Elite</h1>
-
-    <!-- Task Form Section -->
-    <div class="task-form">
-        <!-- Task text input -->
-        <input type="text" id="taskInput" class="task-input" placeholder="Enter a task">
-
-        <!-- Start Date input -->
-        <input type="datetime-local" id="startDate" class="task-input" placeholder="Start Date">
-
-        <!-- Due Date input -->
-        <input type="datetime-local" id="dueDate" class="task-input" placeholder="Due Date">
-
-        <!-- Status Dropdown -->
-        <select id="status" class="task-input">
-            <option value="*" disabled selected>Select Status</option>
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
-            <option value="Pending">Pending</option>
-        </select>
-
-        <!-- Create Task Button -->
-        <button id="createTaskBtn" class="add-btn">Create Task</button>
-    </div>
-
-
 
 <!-- Task Details Section -->
 <div id="taskDetails" class="task-details">
@@ -822,6 +1050,42 @@ h1 {
     <p>&copy; 2025 To-Do List. All Rights Reserved.</p>
 </div>
 
+<!-- Floating Action Button (FAB) -->
+<button class="fab" id="openNewTaskModal" aria-label="Add new task">+</button>
+
+<!-- New Task Modal -->
+<div id="newTaskModal" aria-modal="true" role="dialog">
+    <div class="modal-content">
+        <button class="close-modal" id="closeNewTaskModal" aria-label="Close">&times;</button>
+        <h2 style="text-align:center; margin-bottom:18px;">Add New Task</h2>
+        <form id="newTaskForm" autocomplete="off">
+            <div>
+                <label for="modalTaskInput">Task</label>
+                <input type="text" id="modalTaskInput" placeholder="Enter a task" required maxlength="100">
+            </div>
+            <div>
+                <label for="modalStartDate">Start Date</label>
+                <input type="datetime-local" id="modalStartDate" required>
+            </div>
+            <div>
+                <label for="modalDueDate">Due Date</label>
+                <input type="datetime-local" id="modalDueDate" required>
+            </div>
+            <div>
+                <label for="modalStatus">Status</label>
+                <select id="modalStatus" required>
+                    <option value="" disabled selected>Select Status</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending">Pending</option>
+                </select>
+            </div>
+            <div class="error" id="modalError"></div>
+            <button type="submit" class="modal-btn">Create Task</button>
+        </form>
+    </div>
+</div>
 
     <script>
        // Select HTML elements
@@ -868,35 +1132,7 @@ if (profileName) {
 }
 
 // Add task to list
-createTaskBtn.addEventListener('click', createTask);
-
-// Create task function
-function createTask() {
-    const taskText = taskInput.value.trim();
-    const startDate = startDateInput.value;
-    const dueDate = dueDateInput.value;
-    const status = statusSelect.value;
-
-    if (taskText && startDate && dueDate) {
-        const task = {
-            id: Date.now(),
-            text: taskText,
-            startDate: startDate,
-            dueDate: dueDate,
-            status: status, 
-            completed: false
-        };
-        tasks.push(task);
-        localStorage.setItem(`tasks_${userID}`, JSON.stringify(tasks));
-        renderTasks();
-        taskInput.value = '';
-        startDateInput.value = '';
-        dueDateInput.value = '';
-        statusSelect.value = 'Not Started'; 
-    } else {
-        alert('Please fill out all fields');
-    }
-}
+// createTaskBtn.addEventListener('click', createTask);
 
 // Get the search input element
 const taskSearchInput = document.getElementById('taskSearchInput');
@@ -1173,6 +1409,107 @@ setInterval(changeBackground, 300000);
 
 // Initialize tasks on page load
 renderTasks();
+
+// --- FAB and Modal Logic ---
+const openNewTaskModalBtn = document.getElementById('openNewTaskModal');
+const newTaskModal = document.getElementById('newTaskModal');
+const closeNewTaskModalBtn = document.getElementById('closeNewTaskModal');
+const newTaskForm = document.getElementById('newTaskForm');
+const modalTaskInput = document.getElementById('modalTaskInput');
+const modalStartDate = document.getElementById('modalStartDate');
+const modalDueDate = document.getElementById('modalDueDate');
+const modalStatus = document.getElementById('modalStatus');
+const modalError = document.getElementById('modalError');
+
+function openNewTaskModal() {
+    newTaskModal.style.display = 'flex';
+    modalError.style.display = 'none';
+    newTaskForm.reset();
+    setTimeout(() => { modalTaskInput.focus(); }, 100);
+}
+function closeNewTaskModal() {
+    newTaskModal.style.display = 'none';
+}
+openNewTaskModalBtn.addEventListener('click', openNewTaskModal);
+closeNewTaskModalBtn.addEventListener('click', closeNewTaskModal);
+window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && newTaskModal.style.display === 'flex') closeNewTaskModal();
+});
+window.addEventListener('click', function(e) {
+    if (e.target === newTaskModal) closeNewTaskModal();
+});
+
+// Modern create task handler
+newTaskForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const taskText = modalTaskInput.value.trim();
+    const startDate = modalStartDate.value;
+    const dueDate = modalDueDate.value;
+    const status = modalStatus.value;
+    // Validation
+    if (!taskText || !startDate || !dueDate || !status) {
+        modalError.textContent = 'Please fill out all fields.';
+        modalError.style.display = 'block';
+        return;
+    }
+    if (new Date(startDate) > new Date(dueDate)) {
+        modalError.textContent = 'Start date cannot be after due date.';
+        modalError.style.display = 'block';
+        return;
+    }
+    // Add task
+    const task = {
+        id: Date.now(),
+        text: taskText,
+        startDate: startDate,
+        dueDate: dueDate,
+        status: status,
+        completed: false
+    };
+    tasks.push(task);
+    localStorage.setItem(`tasks_${userID}`, JSON.stringify(tasks));
+    renderTasks();
+    closeNewTaskModal();
+    // Optionally show a toast/animation for success
+});
+
+// --- Dashboard Toggle Functionality ---
+const dashboardToggle = document.getElementById('dashboardToggle');
+const dashboard = document.querySelector('.dashboard');
+const mainContainer = document.querySelector('.main-container');
+
+// Check if dashboard state is saved in localStorage
+const isDashboardCollapsed = localStorage.getItem('dashboardCollapsed') === 'true';
+
+// Apply initial state
+if (isDashboardCollapsed) {
+    dashboard.classList.add('collapsed');
+    mainContainer.classList.add('dashboard-collapsed');
+    dashboardToggle.classList.add('collapsed');
+    dashboardToggle.innerHTML = '<i class="fas fa-chevron-right"></i>';
+}
+
+function toggleDashboard() {
+    const isCollapsed = dashboard.classList.contains('collapsed');
+    
+    if (isCollapsed) {
+        // Show dashboard
+        dashboard.classList.remove('collapsed');
+        mainContainer.classList.remove('dashboard-collapsed');
+        dashboardToggle.classList.remove('collapsed');
+        dashboardToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        localStorage.setItem('dashboardCollapsed', 'false');
+    } else {
+        // Hide dashboard
+        dashboard.classList.add('collapsed');
+        mainContainer.classList.add('dashboard-collapsed');
+        dashboardToggle.classList.add('collapsed');
+        dashboardToggle.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        localStorage.setItem('dashboardCollapsed', 'true');
+    }
+}
+
+dashboardToggle.addEventListener('click', toggleDashboard);
 
     </script>
 

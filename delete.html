@@ -653,6 +653,48 @@
         background: var(--gray-200);
       }
 
+      .btn-success {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: var(--white);
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        border: none;
+        font-weight: 600;
+        letter-spacing: 0.025em;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-success:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        background: linear-gradient(135deg, #059669, #047857);
+      }
+
+      .btn-success:active {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+      }
+
+      .btn-success::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn-success:hover::before {
+        left: 100%;
+      }
+
       footer {
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(20px);
@@ -809,6 +851,10 @@
             <i class="fas fa-times"></i>
             Cancel
           </button>
+          <button class="btn btn-success" onclick="restoreTask()">
+            <i class="fas fa-undo"></i>
+            Restore Task
+          </button>
           <button class="btn btn-danger" onclick="permanentlyDelete()">
             <i class="fas fa-trash"></i>
             Delete Permanently
@@ -944,6 +990,58 @@
 
             // Show success message
             showNotification("Task permanently deleted", "success");
+
+            // Reset the button to its original state
+            deleteBtn.innerHTML = originalText;
+            deleteBtn.disabled = false;
+          }, 1000);
+        }
+      }
+
+      function restoreTask() {
+        if (!current) return;
+
+        const index = tasks.findIndex((t) => t.id === current.id);
+        if (index > -1) {
+          // Add confirmation animation
+          const restoreBtn = document.querySelector(".btn-success");
+          const originalText = restoreBtn.innerHTML;
+
+          restoreBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Restoring...';
+          restoreBtn.disabled = true;
+
+          setTimeout(() => {
+            // Remove the deletedAt property to restore the task
+            const taskToRestore = { ...current };
+            delete taskToRestore.deletedAt;
+
+            // Get the current user ID (same logic as homepage)
+            const userID = localStorage.getItem("userID") || "default";
+
+            // Get the main tasks list
+            let mainTasks =
+              JSON.parse(localStorage.getItem(`tasks_${userID}`)) || [];
+
+            // Add the task back to the main tasks list
+            mainTasks.push(taskToRestore);
+
+            // Save the updated main tasks list
+            localStorage.setItem(`tasks_${userID}`, JSON.stringify(mainTasks));
+
+            // Remove the task from deleted tasks
+            tasks.splice(index, 1);
+            localStorage.setItem("deletedTasks", JSON.stringify(tasks));
+
+            showTasks();
+            closeModal();
+
+            // Show success message
+            showNotification("Task restored successfully", "success");
+
+            // Reset the button to its original state
+            restoreBtn.innerHTML = originalText;
+            restoreBtn.disabled = false;
           }, 1000);
         }
       }
@@ -954,7 +1052,13 @@
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${type === "success" ? "var(--success)" : "var(--danger)"};
+        background: ${
+          type === "success"
+            ? "var(--success)"
+            : type === "warning"
+            ? "var(--warning)"
+            : "var(--danger)"
+        };
         color: white;
         padding: 1rem 1.5rem;
         border-radius: var(--border-radius);
