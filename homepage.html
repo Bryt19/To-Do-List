@@ -22,7 +22,10 @@ body {
     min-height: 100vh;
     display: flex;
     color: #fff;
-    transition: background-color 0.3s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    will-change: background-image;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 /* Dashboard Layout */
@@ -518,6 +521,86 @@ h1::after {
     align-items: center;
     z-index: 1000;
     display: none; 
+}
+
+/* Custom Confirmation Modal */
+.confirmation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    backdrop-filter: blur(5px);
+}
+
+.confirmation-content {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.confirmation-content h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.confirmation-content p {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.confirmation-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.confirm-btn, .cancel-confirm-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+}
+
+.confirm-btn:hover {
+    background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+}
+
+.cancel-confirm-btn {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    color: white;
+}
+
+.cancel-confirm-btn:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
 }
 
 /* Modal Content */
@@ -1071,6 +1154,18 @@ h1::after {
     </div>
 </div>
 
+<!-- Custom Confirmation Modal -->
+<div id="confirmationModal" class="confirmation-modal">
+    <div class="confirmation-content">
+        <h3>Delete Task</h3>
+        <p>Are you sure you want to delete this task? This action cannot be undone.</p>
+        <div class="confirmation-buttons">
+            <button class="cancel-confirm-btn" id="cancelDeleteBtn">Cancel</button>
+            <button class="confirm-btn" id="confirmDeleteBtn">Delete</button>
+        </div>
+    </div>
+</div>
+
     <script>
        // Select HTML elements
 const profilePic = localStorage.getItem('profilePic');
@@ -1242,11 +1337,42 @@ detailEditBtn.addEventListener('click', function() {
 
 // Delete button in detail view
 detailDeleteBtn.addEventListener('click', function() {
-    if (confirm('Are you sure you want to delete this task?')) {
-        deleteTask(currentTaskId);
-        taskDetails.style.display = 'none';
-    }
+    showConfirmationModal(currentTaskId);
 });
+
+// Function to show confirmation modal
+function showConfirmationModal(taskId) {
+    const confirmationModal = document.getElementById('confirmationModal');
+    confirmationModal.style.display = 'flex';
+    
+    // Set up the confirm button to delete the task
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+    
+    // Remove any existing event listeners
+    const newConfirmBtn = confirmDeleteBtn.cloneNode(true);
+    const newCancelBtn = cancelDeleteBtn.cloneNode(true);
+    confirmDeleteBtn.parentNode.replaceChild(newConfirmBtn, confirmDeleteBtn);
+    cancelDeleteBtn.parentNode.replaceChild(newCancelBtn, cancelDeleteBtn);
+    
+    // Add new event listeners
+    newConfirmBtn.addEventListener('click', function() {
+        deleteTask(taskId);
+        taskDetails.style.display = 'none';
+        confirmationModal.style.display = 'none';
+    });
+    
+    newCancelBtn.addEventListener('click', function() {
+        confirmationModal.style.display = 'none';
+    });
+    
+    // Close modal if clicking outside
+    confirmationModal.addEventListener('click', function(e) {
+        if (e.target === confirmationModal) {
+            confirmationModal.style.display = 'none';
+        }
+    });
+}
 
     // JavaScript to toggle the task list visibility
 document.getElementById("toggleTasksBtn").addEventListener("click", function() {
@@ -1376,19 +1502,50 @@ const backgrounds = [
     './img/C 4.jpg',
 ];
 
-// Function to change the background image
-function changeBackground() {
-    // Get a random index from the backgrounds array
-    const randomIndex = Math.floor(Math.random() * backgrounds.length);
-    // Set the background image of the body
-    document.body.style.backgroundImage = `url('${backgrounds[randomIndex]}')`;
+// Preload background images for faster switching
+function preloadBackgroundImages() {
+    backgrounds.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
 }
 
-// Initial background change
-changeBackground();
+// Function to change the background image with fade effect
+function changeBackground() {
+    const randomIndex = Math.floor(Math.random() * backgrounds.length);
+    const newBackground = backgrounds[randomIndex];
+    
+    // Add fade out effect
+    document.body.style.transition = 'opacity 0.5s ease-in-out';
+    document.body.style.opacity = '0.8';
+    
+    // Change background after fade
+    setTimeout(() => {
+        document.body.style.backgroundImage = `url('${newBackground}')`;
+        document.body.style.opacity = '1';
+    }, 250);
+}
 
-// Change the background every 5 minutes (300000 milliseconds)
-setInterval(changeBackground, 300000);
+// Initialize with first background and preload others
+function initializeBackgrounds() {
+    // Set initial background immediately
+    document.body.style.backgroundImage = `url('${backgrounds[0]}')`;
+    
+    // Preload all other images
+    preloadBackgroundImages();
+    
+    // Start background rotation after a delay
+    setTimeout(() => {
+        setInterval(changeBackground, 180000); // Change every 3 minutes
+    }, 10000); // Start rotation after 10 seconds
+}
+
+// Start background initialization when page loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeBackgrounds);
+} else {
+    initializeBackgrounds();
+}
 
 
 // Initialize tasks on page load
